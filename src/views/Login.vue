@@ -9,9 +9,11 @@
           class="text-field"
           label="Nome"
           :rules="nameRules"
-          color="primary"
         ></v-text-field>
-        <v-text-field label="Senha" :rules="passwordRules" color="red"></v-text-field>
+        <v-text-field
+          label="Senha"
+          :rules="passwordRules"
+        ></v-text-field>
       </v-form>
     </v-card>
   </section>
@@ -23,7 +25,7 @@ export default {
     valid: false,
     nameRules: [
       (v) => !!v || "Name is required",
-      (v) => v && v.length <= 30 || "Name must be less than 30 characters",
+      (v) => (v && v.length <= 30) || "Name must be less than 30 characters",
     ],
     emailRules: [
       (v) => !!v || "E-mail is required",
@@ -31,13 +33,17 @@ export default {
     ],
     passwordRules: [
       (v) => !!v || "Password is required",
-      (v) => v && v.length >= 3 || "Password must be less than 10 characters",
+      (v) => (v && v.length >= 3) || "Password must be less than 10 characters",
     ],
   }),
 };
 </script>
 
 <style scoped>
+.teste {
+  width: 300px;
+  height: 300px;
+}
 html {
   overflow-y: hidden !important;
 }
@@ -63,11 +69,5 @@ html {
 .text-field {
   margin-bottom: 30px;
 }
-.login-box-textfields > .error--text {
-  color: red !important;
-}
 
-.login-box-textfields > .v-input--has-state.error--text .v-label {
-  color: red !important;
-}
 </style>
