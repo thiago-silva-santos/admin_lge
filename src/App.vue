@@ -1,13 +1,16 @@
 <template>
   <v-app>
-    <v-fade-transition mode="out-in">
+      <Header/>
       <router-view />
-    </v-fade-transition>
   </v-app>
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
 export default {
+  components: {
+    Header
+  },
   name: "App",
   data: () => ({
     //
