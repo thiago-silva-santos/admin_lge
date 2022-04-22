@@ -5,12 +5,24 @@
         <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
       </v-app-bar>
 
-      <v-navigation-drawer
-        v-model="drawer"
-        class="drawer"
-        app
-        temporary
-      >
+      <v-navigation-drawer v-model="drawer" class="drawer" app temporary>
+        <div class="v-drawer-header">
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img
+                src="https://randomuser.me/api/portraits/men/78.jpg"
+              ></v-img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>John Leider </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-icon class="v-icon-close" color="black" @click="drawer = !drawer"
+            >mdi-close</v-icon
+          >
+        </div>
+
         <v-list dense>
           <v-list-item v-for="item in items" :key="item.title" link>
             <v-list-item-icon>
@@ -45,4 +57,12 @@ export default {
 };
 </script>
 <style scoped>
+.v-drawer-header {
+  display: flex;
+  align-items: center;
+}
+.v-icon-close {
+  font-size: 25px;
+  padding-right: 16px;
+}
 </style>
