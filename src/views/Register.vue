@@ -2,44 +2,35 @@
   <section class="login-screen">
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
-        <h1>Entre com sua conta</h1>
+        <h1>Registrar a sua conta</h1>
       </div>
       <v-form class="login-box-textfields">
         <v-text-field
-          color="bluemoon"
           class="text-field"
           label="Nome"
           :rules="nameRules"
-          v-model="input.username"
         ></v-text-field>
         <v-text-field
-          color="bluemoon"
+          class="text-field"
+          label="E-mail"
+          :rules="emailRules"
+        ></v-text-field>
+        <v-text-field
           label="Senha"
           :rules="passwordRules"
-          v-model="input.password"
         ></v-text-field>
       </v-form>
-      <div class="btn-container">
-        <v-btn class="bluemoon v-btn-login" v-on:click="login()">
-          Entrar
-        </v-btn>
-      </div>
     </v-card>
   </section>
 </template>
 
 <script>
 export default {
-  name: "Login",
   data: () => ({
-    input: {
-      username: "",
-      password: "",
-    },
     valid: false,
     nameRules: [
       (v) => !!v || "Nome é necessário",
-      (v) => (v && v.length <= 30) || "Nome deve conter menos de 30 caracteres",
+      (v) => (v && v.length <= 30) || "Name must be less than 30 characters",
     ],
     emailRules: [
       (v) => !!v || "E-mail é necessário",
@@ -47,20 +38,9 @@ export default {
     ],
     passwordRules: [
       (v) => !!v || "Senha é necessária",
-      (v) => (v && v.length >= 3) || "Senha deve conter pelomenos 3 caracteres",
+      (v) => (v && v.length >= 3) || "Password must be less than 10 characters",
     ],
   }),
-  methods: {
-    login() {
-      if (this.input.username == "admin" && this.input.password === "admin") {
-        this.$store.commit("setAuth", true);
-        this.$router.replace({ name: "Home" });
-        console.log(this.$store.state.autenticado);
-      } else {
-        alert("Usuário e / ou senha incorreta");
-      }
-    },
-  },
 };
 </script>
 
@@ -79,7 +59,7 @@ html {
   justify-content: center;
   align-content: center;
   align-items: center;
-  background-color: rgb(0, 119, 255);
+  background-color: rgb(255, 196, 0);
 }
 .login-box-title {
   margin-bottom: 15px;
@@ -89,17 +69,10 @@ html {
   flex-direction: column;
   width: 400px;
   background-color: white !important;
-  padding: 40px 20px 20px 20px;
+  padding: 40px 20px;
 }
 .text-field {
   margin-bottom: 30px;
 }
-.btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-.v-btn-login {
-  color: white;
-}
+
 </style>

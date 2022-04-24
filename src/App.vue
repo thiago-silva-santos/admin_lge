@@ -1,30 +1,36 @@
 <template>
   <v-app>
-    <Login v-if="!isLogged"/>
-    <div v-if="isLogged">
-      <Header />
-      <router-view />
+    <div>
+      <Header v-if="this.$store.state.autenticado"/>
+      <router-view class="router-view"/>
     </div>
   </v-app>
 </template>
 
 <script>
-import Login from "./views/Login.vue";
 import Header from "@/components/Header.vue";
 export default {
   components: {
-    Login,
     Header,
   },
   name: "App",
   data: () => ({
-    isLogged: false
   }),
+  computed: {
+    getRoute() {
+      return this.$route.name !== "Login" && this.$route.name !== "Register";
+    }
+  }
+
 };
 </script>
 
 <style>
 body {
   font-family: "Roboto", sans-serif;
+}
+.router-view {
+  padding-top: 64px;
+
 }
 </style>
