@@ -1,5 +1,5 @@
 <template>
-  <section class="login-screen">
+  <section class="login-screen" color="bluemoon">
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
         <h1>Entre com sua conta</h1>
@@ -79,7 +79,7 @@ html {
   justify-content: center;
   align-content: center;
   align-items: center;
-  background-color: rgb(0, 119, 255);
+  background-color: #0077FF;
 }
 .login-box-title {
   margin-bottom: 15px;
