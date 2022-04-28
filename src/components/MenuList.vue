@@ -1,69 +1,51 @@
  <template>
   <div class="menuContainer">
-    <div class="menuHeader">
-      <v-list-item-avatar width="50" height="50">
-        <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
-      </v-list-item-avatar>
-    </div>
-
     <div class="menuLinks">
-      <!-- <v-list
-        <menu-items :menus="item.children">
-
-        </menu-items>
-
-        <v-list-item :menus="itens"> </v-list-item>
-      </v-list> -->
       <v-list>
         <template v-for="(item, index) in items">
-          <v-list-item :key="index" @click="$router.push(item.path)">
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </template>
-
-        <v-list>
-          <template v-for="(item, index) in items">
+          <template v-if="hasChildren(item)">
             <v-list-group
               :key="index"
               prepend-icon="mdi-account-circle"
-              v-if="hasChildren(item)"
+              no-action
+              color="bluemoon"
             >
-              <template v-slot:activator>
+              <template v-if="hasChildren(item)" v-slot:activator>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </template>
-
-              <v-list-item
-                v-for="(item, index) in item.children"
-                :key="index"
-                @click="$router.push(item.path)"
-              >
-                <v-list-item-icon>
-                  <!-- <v-icon>{{ item.icon }}</v-icon> -->
-                </v-list-item-icon>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-
-              <v-list-group no-action sub-group>
-                <template v-slot:activator>
-                  <v-list-item-content>
-                    <v-list-item-title>Child da Child</v-list-item-title>
-                  </v-list-item-content>
+              <template v-for="(child, indexChild) in item.children">
+                <template v-if="hasChildren(child)">
+                  <sub-group-menu
+                    :key="indexChild"
+                    :title="child.title"
+                    :icon="child.icon"
+                    :children="child.children"
+                  />
                 </template>
-
-                <v-list-item v-for="(item, i) in admins" :key="i" link>
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-
-                  <v-list-item-icon>
-                    <v-icon v-text="icon"></v-icon>
-                  </v-list-item-icon>
-                </v-list-item>
-              </v-list-group>
+                <template v-else>
+                  <v-list-item
+                    :key="indexChild"
+                    @click="$router.push(item.path)"
+                    class="children"
+                  >
+                    <v-list-item-icon>
+                      <v-icon>{{ child.icon }} </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>{{ child.title }}</v-list-item-title>
+                  </v-list-item>
+                </template>
+              </template>
             </v-list-group>
           </template>
-        </v-list>
+          <template v-else>
+            <v-list-item :key="index" @click="$router.push(item.path)">
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </template>
+        </template>
       </v-list>
     </div>
   </div>
@@ -71,52 +53,16 @@
  
  <script>
 export default {
-  data: () => ({
-    drawer: false,
-
-    items: [
-      { title: "Home", icon: "mdi-home", path: "/Home" },
-      {
-        title: "About",
-        icon: "mdi-account",
-        path: "/About",
-      },
-      {
-        title: "Store",
-        icon: "mdi-forum",
-        children: [
-          { title: "Child 1", path: "/Home" },
-          { title: "Child 2", path: "/About" },
-          { title: "Child 3", path: "/Home" },
-        ],
-      },
-      {
-        title: "Store 2",
-        icon: "mdi-forum",
-        children: [
-          { title: "Child 1", path: "/Home" },
-          { title: "Child 2", path: "/About" },
-          {
-            title: "Child 3",
-            path: "/Home",
-            children: [
-              { title: "Child 1", path: "/Home" },
-              { title: "Child 2", path: "/About" },
-              { title: "Child 3", path: "/Home" },
-            ],
-          },
-        ],
-      },
-    ],
-  }),
+  name: "MenuListNew",
+  props: {
+    items: {
+      type: Array,
+    },
+  },
   methods: {
     hasChildren(item) {
       return item.children?.length > 0;
     },
-  },
-  computed: {
-    console: () => console,
-    window: () => window,
   },
 };
 </script>
@@ -124,6 +70,9 @@ export default {
  <style scoped>
 .v-list {
   padding: 0 !important;
+}
+.children {
+  padding-left: 40px;
 }
 .menuHeader {
   display: flex;

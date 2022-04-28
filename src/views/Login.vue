@@ -18,12 +18,16 @@
           :rules="passwordRules"
           v-model="input.password"
         ></v-text-field>
+        <div class="btn-container">
+          <v-btn
+            class="bluemoon v-btn-login"
+            v-on:click="login()"
+            type="submit"
+          >
+            Entrar
+          </v-btn>
+        </div>
       </v-form>
-      <div class="btn-container">
-        <v-btn class="bluemoon v-btn-login" v-on:click="login()">
-          Entrar
-        </v-btn>
-      </div>
     </v-card>
   </section>
 </template>

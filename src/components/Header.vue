@@ -16,7 +16,6 @@
         class="drawer"
         app
         temporary
-        dark
         width="360"
       >
         <div class="menuHeader">
@@ -49,7 +48,7 @@ export default {
       { title: "Max", icon: "mdi-forum", path: "", children: [] },
       { title: "Poco", icon: "mdi-forum", path: "", children: [] },
       {
-        title: "Store",
+        title: "Station",
         icon: "mdi-forum",
         children: [
           { title: "Child 1", icon: "mdi-home", path: "/Home" },
@@ -58,35 +57,23 @@ export default {
         ],
       },
       {
-        title: "Store 2",
+        title: "Store",
         icon: "mdi-forum",
         children: [
           {
-            title: "Child 1",
+            title: "Filho da Store 1",
             icon: "mdi-home",
             path: "/Home",
             children: [
-              { title: "Child 1", path: "/Home" },
-              { title: "Child 2", path: "/About" },
+              { title: "Neto 1", icon: "mdi-home", path: "/About" },
+              { title: "Neto 2", icon: "mdi-home", path: "/Home" },
               {
-                title: "Child 3",
-                children: [
-                  { title: "A", path: "/Home" },
-                  { title: "B", path: "/About" },
-                  {
-                    title: "C",
-                    children: [
-                      { title: "sldjf", path: "/Home" },
-                      { title: "açlsdfk", path: "/About" },
-                      { title: "lksdjf", path: "/Home" },
-                    ],
-                  },
-                ],
+                title: "Neto 3",
               },
             ],
           },
-          { title: "Child 2", icon: "mdi-home", path: "/About" },
-          { title: "Child 3", icon: "mdi-home", path: "/Home" },
+          { title: "Filho da Store 2", icon: "mdi-home", path: "/About" },
+          { title: "Filho da Store 3", icon: "mdi-home", path: "/Home" },
         ],
       },
     ],

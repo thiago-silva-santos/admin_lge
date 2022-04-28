@@ -1,5 +1,5 @@
 <template>
-  <v-list-group sub-group>
+  <v-list-group sub-group color="bluemoon">
     <template v-slot:activator>
       <v-list-item-content>
         <v-list-item-title>{{ title }}</v-list-item-title>
@@ -15,11 +15,16 @@
         />
       </template>
       <template v-else>
-        <v-list-item :key="index" link @click="$router.push(item.path)">
+        <v-list-item
+          :key="index"
+          link
+          @click="$router.push(item.path)"
+          class="grandChildren"
+        >
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>a {{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </template>
     </template>
@@ -47,3 +52,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.grandChildren {
+  padding-left: 100px !important;
+}
+</style>
