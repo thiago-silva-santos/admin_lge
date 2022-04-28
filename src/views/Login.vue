@@ -55,7 +55,6 @@ export default {
       if (this.input.username == "admin" && this.input.password === "admin") {
         this.$store.commit("setAuth", true);
         this.$router.replace({ name: "Home" });
-        console.log(this.$store.state.autenticado);
       } else {
         alert("Usuário e / ou senha incorreta");
       }
@@ -79,7 +78,7 @@ html {
   justify-content: center;
   align-content: center;
   align-items: center;
-  background-color: #0077FF;
+  background-color: #0077ff;
 }
 .login-box-title {
   margin-bottom: 15px;

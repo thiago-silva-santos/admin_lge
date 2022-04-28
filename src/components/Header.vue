@@ -19,60 +19,81 @@
         dark
         width="360"
       >
-        <v-list-item class="v-drawer-header">
+        <div class="menuHeader">
           <v-list-item-avatar width="50" height="50">
             <v-img
               src="https://randomuser.me/api/portraits/women/85.jpg"
             ></v-img>
           </v-list-item-avatar>
-        </v-list-item>
-
-        <v-list dense rounded>
-          <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-            @click="$router.push(item.path)"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+        </div>
+        <menu-list-new :items="items" />
       </v-navigation-drawer>
     </div>
   </nav>
 </template>
 
 <script>
+// import MenuList from "./MenuList.vue";
+//import MenuList from "./MenuList.vue";
 export default {
   data: () => ({
     drawer: false,
-    group: null,
     items: [
       { title: "Home", icon: "mdi-home", path: "/Home" },
-      { title: "About", icon: "mdi-account", path: "/About" },
-      { title: "Store", icon: "mdi-forum", path: "" },
-      { title: "Nothing", icon: "mdi-forum", path: "" },
-      { title: "Max", icon: "mdi-forum", path: "" },
-      { title: "Poco", icon: "mdi-forum", path: "" },
+      {
+        title: "About",
+        icon: "mdi-account",
+        path: "/About",
+      },
+      { title: "Nothing", icon: "mdi-forum", path: "", children: [] },
+      { title: "Max", icon: "mdi-forum", path: "", children: [] },
+      { title: "Poco", icon: "mdi-forum", path: "", children: [] },
+      {
+        title: "Store",
+        icon: "mdi-forum",
+        children: [
+          { title: "Child 1", icon: "mdi-home", path: "/Home" },
+          { title: "Child 2", icon: "mdi-home", path: "/About" },
+          { title: "Child 3", icon: "mdi-home", path: "/Home" },
+        ],
+      },
+      {
+        title: "Store 2",
+        icon: "mdi-forum",
+        children: [
+          {
+            title: "Child 1",
+            icon: "mdi-home",
+            path: "/Home",
+            children: [
+              { title: "Child 1", path: "/Home" },
+              { title: "Child 2", path: "/About" },
+              {
+                title: "Child 3",
+                children: [
+                  { title: "A", path: "/Home" },
+                  { title: "B", path: "/About" },
+                  {
+                    title: "C",
+                    children: [
+                      { title: "sldjf", path: "/Home" },
+                      { title: "açlsdfk", path: "/About" },
+                      { title: "lksdjf", path: "/Home" },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          { title: "Child 2", icon: "mdi-home", path: "/About" },
+          { title: "Child 3", icon: "mdi-home", path: "/Home" },
+        ],
+      },
     ],
   }),
-  computed: {},
 };
 </script>
 <style scoped>
-.v-drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid white;
-  height: 80px;
-}
 .header-info {
   text-align: end;
 }
