@@ -10,18 +10,18 @@
           class="text-field"
           label="Nome"
           :rules="nameRules"
-          v-model="input.username"
+          v-model="username"
         ></v-text-field>
         <v-text-field
           color="bluemoon"
           label="Senha"
           :rules="passwordRules"
-          v-model="input.password"
+          v-model="password"
         ></v-text-field>
         <div class="btn-container">
           <v-btn
             class="bluemoon v-btn-login"
-            v-on:click="login()"
+            v-on:click="doLogin()"
             type="submit"
           >
             Entrar
@@ -33,14 +33,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data: () => ({
-    input: {
-      username: "",
-      password: "",
-    },
-    valid: false,
+    username: "",
+    password: "",
     nameRules: [
       (v) => !!v || "Nome é necessário",
       (v) => (v && v.length <= 30) || "Nome deve conter menos de 30 caracteres",
@@ -55,14 +53,29 @@ export default {
     ],
   }),
   methods: {
-    login() {
-      if (this.input.username == "admin" && this.input.password === "admin") {
-        this.$store.commit("setAuth", true);
-        this.$router.replace({ name: "Home" });
+    ...mapActions("login", {
+      login: "login",
+    }),
+    reset() {
+      this.$refs.form.reset();
+    },
+    doLogin() {
+      const { username, password } = this;
+      if (this.username != "" && this.password != "") {
+        this.login({ username, password });
       } else {
-        alert("Usuário e / ou senha incorreta");
+        alert("Please fill the text!");
       }
     },
+
+    // login() {
+    //   if (this.input.username == "admin" && this.input.password === "admin") {
+    //     this.$store.commit("setAuth", true);
+    //     this.$router.replace({ name: "Home" });
+    //   } else {
+    //     alert("Usuário e / ou senha incorreta");
+    //   }
+    // },
   },
 };
 </script>

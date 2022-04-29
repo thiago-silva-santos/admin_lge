@@ -10,7 +10,6 @@ const blabla = {
         warning: '#FB8C00',
         error: '#FF5252',
         bluemoon: '#0077FF',
-        black: '#00000'
     }
 }
 Vue.use(Vuetify);

@@ -18,13 +18,15 @@
         <v-list-item
           :key="index"
           link
-          @click="$router.push(item.path)"
+          @click="$router.push(item.path).catch(()=>{})"
           class="grandChildren"
         >
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </template>
     </template>
@@ -55,6 +57,6 @@ export default {
 
 <style scoped>
 .grandChildren {
-  padding-left: 100px !important;
+  padding-left: 90px !important;
 }
 </style>

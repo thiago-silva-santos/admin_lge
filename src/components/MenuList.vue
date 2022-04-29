@@ -1,13 +1,12 @@
  <template>
   <div class="menuContainer">
     <div class="menuLinks">
-      <v-list>
+      <v-list nav dense >
         <template v-for="(item, index) in items">
           <template v-if="hasChildren(item)">
             <v-list-group
               :key="index"
               prepend-icon="mdi-account-circle"
-              no-action
               color="bluemoon"
             >
               <template v-if="hasChildren(item)" v-slot:activator>
@@ -25,24 +24,28 @@
                 <template v-else>
                   <v-list-item
                     :key="indexChild"
-                    @click="$router.push(item.path)"
+                    @click="$router.push(item.path).catch(()=>{})"
                     class="children"
                   >
                     <v-list-item-icon>
                       <v-icon>{{ child.icon }} </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>{{ child.title }}</v-list-item-title>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ child.title }}</v-list-item-title>
+                    </v-list-item-content>
                   </v-list-item>
                 </template>
               </template>
             </v-list-group>
           </template>
           <template v-else>
-            <v-list-item :key="index" @click="$router.push(item.path)">
+            <v-list-item :key="index" @click="$router.push(item.path).catch(()=>{})">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </template>
         </template>
@@ -68,9 +71,7 @@ export default {
 </script>
  
  <style scoped>
-.v-list {
-  padding: 0 !important;
-}
+
 .children {
   padding-left: 40px;
 }
@@ -81,4 +82,5 @@ export default {
   border-bottom: 1px solid white;
   height: 80px;
 }
+
 </style>
