@@ -21,22 +21,21 @@ const routes = [
   },
   {
     path: '/',
-    name: 'login'
-    // redirect: {
-    //   name: "Login"
-    // }
+    redirect: {
+      name: "Login"
+    }
   },
   {
     path: '/home',
     name: 'Home',
     component: Home,
-    beforeEnter: (to, from, next) => {
-      if(store.state.autenticado === false) {
-          next("/login");
-      } else {
-        next()
-      }
-  }
+  //   beforeEnter: (to, from, next) => {
+  //     if(store.state.autenticado === false) {
+  //         next("/login");
+  //     } else {
+  //       next()
+  //     }
+  // }
   },
   {
     path: '/about',

@@ -1,5 +1,5 @@
 import { loginService } from '../services/loginService';
-import { router } from '../router/index';
+import router from '../router'
 
 const state = {
     isLogin: false,
@@ -15,7 +15,7 @@ const actions = {
         if(result){
             commit('loginSuccess');
             console.log("login success");
-            this.$router.replace({ name: "Home" });
+            router.push('/home');
         }
     },
     logout({commit}) {
