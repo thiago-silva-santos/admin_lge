@@ -5,7 +5,9 @@
         <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
         <v-list-item class="header-info">
           <v-list-item-content>
-            <v-list-item-title v-text="this.$store.state.user"></v-list-item-title>
+            <v-list-item-title
+              v-text="this.$store.state.user"
+            ></v-list-item-title>
             <v-list-item-subtitle>Logged In</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -20,12 +22,9 @@
       >
         <div class="menuHeader">
           <div class="logo">
-            <v-img width="25" height="25"
-              src="../assets/logo.png"
-            ></v-img>
+            <v-img width="25" height="25" src="../assets/logo.png"></v-img>
           </div>
-            <h1>LIWEB - EVENTOS</h1>
-            
+          <h1>LIWEB - EVENTOS</h1>
         </div>
         <menu-list-new :items="items" />
       </v-navigation-drawer>
@@ -52,7 +51,15 @@ export default {
         children: [
           { title: "Child 1", icon: "mdi-home", path: "/Home" },
           { title: "Child 2", icon: "mdi-home", path: "/About" },
-          { title: "Child 3", icon: "mdi-home", path: "/Home" },
+          {
+            title: "Child 3",
+            icon: "mdi-home",
+            children: [
+              { title: "Child 1", icon: "mdi-home", path: "/Home" },
+              { title: "Child 2", icon: "mdi-home", path: "/About" },
+              { title: "Child 3", icon: "mdi-home", path: "/Home" },
+            ],
+          },
         ],
       },
       {
@@ -73,7 +80,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .header-info {
   padding: 0 !important;
 }
@@ -98,7 +104,6 @@ export default {
   justify-content: center;
   width: 50px;
 }
-
 
 @media (max-width: 400px) {
   .v-navigation-drawer {

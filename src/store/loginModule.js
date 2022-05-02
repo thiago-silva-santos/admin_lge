@@ -5,6 +5,7 @@ const state = {
     isLogin: false,
     token:null,
     user:null,
+    nomeAleatorio: 'Thiago Silva'
 };
 
 const actions = {
