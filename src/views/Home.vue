@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="imgContainer">
+      <img id="img" alt="Vue logo" src="../assets/logo.png" />
+    </div>
+    <section class="text">
+      <HelloWorld msg="Welcome to Your Vue.js App" />
+    </section>
   </div>
 </template>
 
@@ -16,3 +20,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+img {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}
+.text {
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: justify;
+}
+</style>

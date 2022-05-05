@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <Header v-if="this.$store.state.login.isLogin" />
+      <router-view name="header" />
       <router-view class="router-view" />
     </div>
   </v-app>
@@ -9,11 +9,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Header from "@/components/Header.vue";
 export default {
-  components: {
-    Header,
-  },
+
   name: "App",
   data: () => ({
   }),

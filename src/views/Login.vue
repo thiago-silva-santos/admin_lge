@@ -116,6 +116,6 @@ html {
   margin-top: 30px;
 }
 .v-btn-login {
-  color: white;
+  color: white !important;
 }
 </style>

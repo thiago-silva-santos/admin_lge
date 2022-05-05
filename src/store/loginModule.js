@@ -30,22 +30,22 @@ const actions = {
 
 const mutations = {
     resetState (state) {
-        state.isLogin=false;
-        state.token=null;
-        state.user=null;
+        state.isLogin = false;
+        state.token = null;
+        state.user = null;
     },
     loginRequest(state, user) {
-        state.isLogin=true;
-        state.token=null;
-        state.user=user;
+        state.isLogin = true;
+        state.token = null;
+        state.user = user;
     },
     loginSuccess(state) {
-        state.isLogin=true;
-        state.token=null;
-        state.user=null;
+        state.isLogin = true;
+        state.token = null;
+        state.user = null;
     },
     loginFailure(state) {
-        state.isLogin=false;
+        state.isLogin = false;
     },
 };
 
