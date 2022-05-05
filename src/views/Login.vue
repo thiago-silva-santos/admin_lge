@@ -4,7 +4,7 @@
       <div class="login-box-title">
         <h1>Entre com sua conta</h1>
       </div>
-      <v-form class="login-box-textfields">
+      <v-form class="login-box-textfields" ref="formAcesso" lazy-validation>
         <v-text-field
           color="bluemoon"
           class="text-field"
@@ -21,7 +21,7 @@
         <div class="btn-container">
           <v-btn
             class="bluemoon v-btn-login"
-            v-on:click="doLogin()"
+            v-on:click="verifyAccess()"
             type="submit"
           >
             Entrar
@@ -34,9 +34,16 @@
 
 <script>
 // import { mapActions } from "vuex";
+
+import { required } from "vuelidate/lib/validators";
 export default {
+  validations: {
+    acesso: { required },
+    cpfRecuperacao: { required },
+  },
   name: "Login",
   data: () => ({
+    exibeSenha: false,
     username: "",
     password: "",
     nameRules: [
@@ -53,6 +60,12 @@ export default {
     ],
   }),
   methods: {
+    verifyAccess() {
+      if (this.$refs.formAcesso.validate()) this.logar();
+    },
+    logar() {
+      this.$store.dispatch("acesso/ACESSAR");
+    },
     // ...mapActions("login", {
     //   login: "login",
     // }),

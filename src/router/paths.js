@@ -37,7 +37,10 @@ export default [
             default: Home,
             header: Header
         },
+    meta: {
 
+        requireAuth: true
+    }
 
     },
     // {

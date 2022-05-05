@@ -20,10 +20,15 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let state = store.state;
-  if (state === false) {
-    next("/login");
+  console.log(state)
+  console.log(to)
+  if (to.meta.requireAuth) {
+    if (state.acesso.isLogged)
+      next()
+    else
+      next('/login')
   } else {
-    next()
+    next();
   }
 });
 
