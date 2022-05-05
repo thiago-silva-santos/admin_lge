@@ -8,20 +8,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
-
   name: "App",
-  data: () => ({
-  }),
-  computed: {
-      ...mapState("login", ['nomeAleatorio'])},
+  data: () => ({}),
+  //   computed: {
+  //       ...mapState("login", ['nomeAleatorio'])},
 
-created() {
-  console.log('testando ' + this.$store.state.login.isLogin)
-  console.log('testando ' + this.nomeAleatorio)
-}
-
+  // created() {
+  //   console.log('testando ' + this.$store.state.login.isLogin)
+  //   console.log('testando ' + this.nomeAleatorio)
+  // }
 };
 </script>
 

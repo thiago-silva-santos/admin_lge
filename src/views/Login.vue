@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 export default {
   name: "Login",
   data: () => ({
@@ -53,21 +53,20 @@ export default {
     ],
   }),
   methods: {
-    ...mapActions("login", {
-      login: "login",
-    }),
-    reset() {
-      this.$refs.form.reset();
-    },
-    doLogin() {
-      const { username, password } = this;
-      if (this.username != "" && this.password != "") {
-        this.login({ username, password });
-      } else {
-        alert("Please fill the text!");
-      }
-    },
-
+    // ...mapActions("login", {
+    //   login: "login",
+    // }),
+    // reset() {
+    //   this.$refs.form.reset();
+    // },
+    // doLogin() {
+    //   const { username, password } = this;
+    //   if (this.username != "" && this.password != "") {
+    //     this.login({ username, password });
+    //   } else {
+    //     alert("Please fill the text!");
+    //   }
+    // },
     // login() {
     //   if (this.input.username == "admin" && this.input.password === "admin") {
     //     this.$store.commit("setAuth", true);

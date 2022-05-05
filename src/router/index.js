@@ -1,75 +1,36 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Header from '../components/Header.vue'
-import Register from '../views/Register.vue'
-import { login } from '../store/loginModule'
+import paths from './paths'
+import store from '../store'
 Vue.use(VueRouter)
-
-const routes = [
-
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
-  {
-    path: '/',
-    redirect: {
-      name: "Login"
-    }
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    components: {
-      default: Home,
-      header: Header
-      // default: () => import('../views/Home.vue'),
-      // header: () => import('../components/Header.vue')
-    },
-
-    beforeEnter: (to, from, next) => {
-      if(login.state.isLogin === false) {
-          next("/login");
-      } else {
-        next()
-      }
-  }
-  },
-  {
-    path: '/about',
-    name: 'About',
-    components: {
-      default: () => import('../views/About.vue'),
-      header: () => import('../components/Header.vue')
-    },
-    beforeEnter: (to, from, next) => {
-      if(login.state.isLogin === false) {
-          next("/login");
-      } else {
-        next()
-      }
-  }
-  },
-  {
-    path :'*',
-    redirect: {
-      name: "Login"
-    }
-}
-]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  routes: paths,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    }
+    if (to.hash) {
+      return { selector: to.hash }
+    }
+    return { x: 0, y: 0 }
+  }
 })
+
+router.beforeEach((to, from, next) => {
+  let state = store.state;
+  if (state === false) {
+    next("/login");
+  } else {
+    next()
+  }
+});
+
+
+
+
+
+
 
 export default router
