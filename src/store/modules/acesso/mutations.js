@@ -1,5 +1,6 @@
 export default {
-    SET_DADOS_ACESSO(state, payload) {        
+    SET_DADOS_ACESSO(state, payload) {
+       
         state.isLogged = payload
     },
     SET_PERFIL(state, payload) {

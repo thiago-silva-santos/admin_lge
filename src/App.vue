@@ -3,22 +3,18 @@
     <div>
       <router-view name="header" />
       <router-view class="router-view" />
+      <Loading/>
     </div>
   </v-app>
 </template>
 
 <script>
 // import { mapState } from 'vuex'
+import Loading from "./components/Loading/Loading.vue";
 export default {
-  name: "App",
-  data: () => ({}),
-  //   computed: {
-  //       ...mapState("login", ['nomeAleatorio'])},
-
-  // created() {
-  //   console.log('testando ' + this.$store.state.login.isLogin)
-  //   console.log('testando ' + this.nomeAleatorio)
-  // }
+    name: "App",
+    data: () => ({}),
+    components: { Loading }
 };
 </script>
 

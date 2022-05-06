@@ -21,7 +21,7 @@
         <div class="btn-container">
           <v-btn
             class="bluemoon v-btn-login"
-            v-on:click="verifyAccess()"
+            v-on:click="logar()"
             type="submit"
           >
             Entrar
@@ -59,12 +59,14 @@ export default {
       (v) => (v && v.length >= 3) || "Senha deve conter pelomenos 3 caracteres",
     ],
   }),
+
   methods: {
-    verifyAccess() {
-      if (this.$refs.formAcesso.validate()) this.logar();
-    },
     logar() {
-      this.$store.dispatch("acesso/ACESSAR");
+      if (this.username != "" && this.password != "") {
+        this.$store.dispatch("acesso/ACESSAR", true)
+      } else {
+        alert("Favor preencher os campos!")
+      }
     },
     // ...mapActions("login", {
     //   login: "login",

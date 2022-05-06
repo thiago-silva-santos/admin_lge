@@ -20,7 +20,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let state = store.state;
-  console.log(state)
+  console.log('isLoggedStatus: '+ state.acesso.isLogged)
   console.log(to)
   if (to.meta.requireAuth) {
     if (state.acesso.isLogged)

@@ -1,16 +1,26 @@
 import router from "@/router";
 
 export default {
-    ACESSAR({ commit }) {
-        commit("loading/EXIBE_LOADING", null, { root: true });
+    ACESSAR({ commit }, payload) {
+        //console.log("teste"+payload)
+        if (payload) {
 
-        setTimeout(() => {
-            commit("acesso/SET_DADOS_ACESSO", true, { root: true });
-            router.push('/home')
-        }, 500);
-        // eslint-disable-next-line no-unused-vars
+            //commit("loading/EXIBE_LOADING", null, { root: true });
 
-        commit("loading/ESCONDE_LOADING", null, { root: true });
+            //setTimeout(() => {
+                console.log(commit, router)
+                commit("acesso/SET_DADOS_ACESSO", payload, { root: true });
+                router.push('/home')
+           // }, 1000);
+            // eslint-disable-next-line no-unused-vars
+
+            //commit("loading/ESCONDE_LOADING", null, { root: true });
+            alert()
+
+        }
+
+
+
     },
     // PERFIL({ commit }, payload) {
     //     payload.http("paciente/perfil").then(response => {
