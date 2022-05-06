@@ -63,7 +63,10 @@ export default {
   methods: {
     logar() {
       if (this.username != "" && this.password != "") {
-        this.$store.dispatch("acesso/ACESSAR", true)
+        this.$store.dispatch("acesso/ACESSAR", {
+          name: this.username,
+          isLogged: true
+        })
       } else {
         alert("Favor preencher os campos!")
       }

@@ -5,7 +5,8 @@ export default {
     GET_USUARIO_ESTA_LOGADO(state) {
         return state.logado;
     },
-    GET_PERFIL(state) {
-        return state.perfil;
+    GET_NAME(state) {
+        return state.name;
     },
+    
 }

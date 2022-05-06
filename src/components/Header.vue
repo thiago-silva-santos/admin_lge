@@ -5,9 +5,7 @@
         <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
         <v-list-item class="header-info">
           <v-list-item-content>
-            <v-list-item-title
-              v-text="this.$store.state.user"
-            ></v-list-item-title>
+            <v-list-item-title v-text="name"></v-list-item-title>
             <v-list-item-subtitle>Logged In</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -35,8 +33,9 @@
 <script>
 // import MenuList from "./MenuList.vue";
 //import MenuList from "./MenuList.vue";
+import { mapState } from "vuex";
 export default {
-  data: () => ({
+  data: () => ({    
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home", path: "/Home" },
@@ -77,6 +76,9 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapState("acesso", ["name"])    
+  }  
 };
 </script>
 <style scoped>

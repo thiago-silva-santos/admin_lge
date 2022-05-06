@@ -1,3 +1,5 @@
 export default {
-    isLogged: false
+    isLogged: false,
+    name: "Thiago",
+
 }
