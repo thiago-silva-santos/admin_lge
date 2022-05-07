@@ -65,7 +65,9 @@ export default {
       if (this.username != "" && this.password != "") {
         this.$store.dispatch("acesso/ACESSAR", {
           name: this.username,
-          isLogged: true
+          isLogged: true,
+          logado: "Logado como:"
+
         })
       } else {
         alert("Favor preencher os campos!")

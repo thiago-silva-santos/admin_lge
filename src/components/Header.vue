@@ -1,15 +1,19 @@
 <template>
   <nav>
     <div class="header">
-      <v-app-bar elevation="4" fixed dark height="56px">
-        <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
-        <v-list-item class="header-info">
-          <v-list-item-content>
-            <v-list-item-title v-text="name"></v-list-item-title>
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-app-bar>
+      <div class="header_bar">
+        <v-app-bar elevation="4" fixed dark height="56px">
+          <div class="app-bar-container">
+            <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
+            <div class="header-info">
+              <div class="v-list-container">
+                <p class="status" v-text="logado"/>
+                <p class="name" v-text="name"/>
+              </div>
+            </div>
+          </div>
+        </v-app-bar>
+      </div>
 
       <v-navigation-drawer
         v-model="drawer"
@@ -31,11 +35,9 @@
 </template>
 
 <script>
-// import MenuList from "./MenuList.vue";
-//import MenuList from "./MenuList.vue";
 import { mapState } from "vuex";
 export default {
-  data: () => ({    
+  data: () => ({
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home", path: "/Home" },
@@ -77,13 +79,44 @@ export default {
     ],
   }),
   computed: {
-    ...mapState("acesso", ["name"])    
-  }  
+    ...mapState("acesso", ["name", "logado"]),
+  },
 };
 </script>
 <style scoped>
+.app-bar-container {
+  display: inherit;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.v-app-bar {
+  width: 100% !important;
+}
 .header-info {
   padding: 0 !important;
+}
+.v-list-container {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.status {
+  margin: 0;
+  font-size: 14px !important;
+  color: rgb(170, 170, 170);
+}
+.name {
+  margin: 0 0 0 10px;
+  text-align: center !important;
+  font-size: 14px;
+}
+.header_bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
 }
 .menuHeader {
   display: flex;
@@ -94,9 +127,7 @@ export default {
 .logo {
   margin-right: 10px;
 }
-.header-info {
-  text-align: end;
-}
+
 .v-icon-close {
   font-size: 25px;
   text-align: center;
