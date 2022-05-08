@@ -25,6 +25,11 @@ export default [
         component: Register
     },
     {
+        path: '/captcha',
+        name: 'Captcha',
+        component: () => import('../views/Captcha.vue'),
+    },
+    {
         path: '/',
         redirect: {
             name: "Login"
