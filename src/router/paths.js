@@ -48,14 +48,13 @@ export default [
     }
 
     },
-    // {
-    //     path: '/about',
-    //     name: 'About',
-    //     components: {
-    //         default: () => import('../views/About.vue'),
-    //         header: () => import('../components/Header.vue')
-    //     },
-
-    // },
+    {
+        path: '/about',
+        name: 'About',
+        components: {
+            default: () => import('../views/About.vue'),
+            header: () => import('../components/Header.vue')
+        },
+    },
 
 ]

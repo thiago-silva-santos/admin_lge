@@ -8,15 +8,21 @@
         <v-text-field
           color="bluemoon"
           class="text-field"
-          label="Nome"
-          :rules="nameRules"
-          v-model="username"
+          label="E-mail"
+          v-model="email"
+          :error-messages="emailErrors"
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
+          required
         ></v-text-field>
         <v-text-field
           color="bluemoon"
           label="Senha"
-          :rules="passwordRules"
           v-model="password"
+          maxLenght="8"
+          required
+          :error-messages="passwordErrors"
+          @input="$v.password.$touch()"
         ></v-text-field>
         <div class="btn-container">
           <v-btn
@@ -35,30 +41,74 @@
 <script>
 // import { mapActions } from "vuex";
 
-import { required } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
 export default {
+  mixins: [validationMixin],
   validations: {
-    acesso: { required },
-    cpfRecuperacao: { required },
+    email: { required, email },
+    password: {
+      required,
+      valid: function (value) {      
+        const containsUppercase = /[A-Z]/.test(value);
+        const containsLowercase = /[a-z]/.test(value);
+        const containsNumber = /[0-9]/.test(value);
+        const containsSpecial = /[#?!@$%^&*-]/.test(value);
+        return (
+          containsUppercase &&
+          containsLowercase &&
+          containsNumber &&
+          containsSpecial
+        );
+      },
+    },
   },
   name: "Login",
   data: () => ({
     exibeSenha: false,
-    username: "",
+    email: "",
     password: "",
-    nameRules: [
-      (v) => !!v || "Nome é necessário",
-      (v) => (v && v.length <= 30) || "Nome deve conter menos de 30 caracteres",
-    ],
-    emailRules: [
-      (v) => !!v || "E-mail é necessário",
-      (v) => /.+@.+/.test(v) || "E-mail must be valid",
-    ],
-    passwordRules: [
-      (v) => !!v || "Senha é necessária",
-      (v) => (v && v.length >= 3) || "Senha deve conter pelomenos 3 caracteres",
-    ],
+    // rules: {
+    //   emailRules: [
+    //     (v) => !!v || "E-mail requerido",
+    //     (v) => v.length >= 8 || "Mínimo 8 caracteres",
+    //     (v) => v.length <= 40 || "Máximo 30 caracteres",
+    //     v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail inválido',
+    //   ],
+
+    //   passwordRules: [
+    //     (v) => !!v || "Senha requerida",
+    //     (v) => v.length >= 8 || "Mínimo 6 caracteres",
+    //   ],
+    // },
   }),
+
+  computed: {
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      !this.$v.email.email && errors.push("E-mail inválido");
+      !this.$v.email.required && errors.push("E-mail requerido");
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];            
+      if (!this.$v.password.$invalid) return errors;
+      !this.$v.password.required && errors.push("Senha requerida");
+      !this.$v.password.invalid && errors.push("Senha inválida");
+      return errors;
+    },
+
+    // registerMe() {
+    //   this.submitted = true;
+    //   this.$v.$touch();
+    //   if (this.$v.$invalid) {
+    //     return false; // stop here if form is invalid
+    //   } else {
+    //     alert("Form Valid. Move to next screen");
+    //   }
+    // },
+  },
 
   methods: {
     logar() {
@@ -66,35 +116,11 @@ export default {
         this.$store.dispatch("acesso/ACESSAR", {
           name: this.username,
           isLogged: true,
-          logado: "Logado como:"
-
-        })
+        });
       } else {
-        alert("Favor preencher os campos!")
+        alert("Favor preencher os campos!");
       }
     },
-    // ...mapActions("login", {
-    //   login: "login",
-    // }),
-    // reset() {
-    //   this.$refs.form.reset();
-    // },
-    // doLogin() {
-    //   const { username, password } = this;
-    //   if (this.username != "" && this.password != "") {
-    //     this.login({ username, password });
-    //   } else {
-    //     alert("Please fill the text!");
-    //   }
-    // },
-    // login() {
-    //   if (this.input.username == "admin" && this.input.password === "admin") {
-    //     this.$store.commit("setAuth", true);
-    //     this.$router.replace({ name: "Home" });
-    //   } else {
-    //     alert("Usuário e / ou senha incorreta");
-    //   }
-    // },
   },
 };
 </script>

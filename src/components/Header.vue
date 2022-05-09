@@ -7,7 +7,7 @@
             <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
             <div class="header-info">
               <div class="v-list-container">
-                <p class="status" v-text="logado"/>
+                <p class="status" v-text="status"/>
                 <p class="name" v-text="name"/>
               </div>
             </div>
@@ -39,6 +39,8 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     drawer: false,
+    username: "",
+    status: "Logado como:",
     items: [
       { title: "Home", icon: "mdi-home", path: "/Home" },
       {
@@ -81,6 +83,9 @@ export default {
   computed: {
     ...mapState("acesso", ["name", "logado"]),
   },
+// created() {
+//   this.username = this.name.split(' ').shift()
+// }
 };
 </script>
 <style scoped>

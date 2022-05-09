@@ -2,7 +2,7 @@
   <section class="login-screen">
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
-        <h1>Registrar a sua conta</h1>
+        <h1>Registrar uma conta</h1>
       </div>
       <v-form class="login-box-textfields">
         <v-text-field
@@ -15,10 +15,15 @@
           label="E-mail"
           :rules="emailRules"
         ></v-text-field>
-        <v-text-field
-          label="Senha"
-          :rules="passwordRules"
-        ></v-text-field>
+        <div class="btn-container">
+          <v-btn
+            class="space_cadet v-btn-login"
+            v-on:click="logar()"
+            type="submit"
+          >
+            Registrar
+          </v-btn>
+        </div>
       </v-form>
     </v-card>
   </section>
@@ -71,8 +76,15 @@ html {
   background-color: white !important;
   padding: 40px 20px;
 }
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.v-btn-login {
+  color: white;
+}
 .text-field {
   margin-bottom: 30px;
 }
-
 </style>
