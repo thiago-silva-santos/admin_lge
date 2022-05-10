@@ -12,7 +12,6 @@
           v-model="email"
           :error-messages="emailErrors"
           @input="$v.email.$touch()"
-          @blur="$v.email.$touch()"
           required
         ></v-text-field>
         <v-text-field
@@ -42,25 +41,41 @@
 // import { mapActions } from "vuex";
 
 import { required, email } from "vuelidate/lib/validators";
-import { validationMixin } from "vuelidate";
 export default {
-  mixins: [validationMixin],
   validations: {
     email: { required, email },
     password: {
       required,
-      valid: function (value) {      
-        const containsUppercase = /[A-Z]/.test(value);
-        const containsLowercase = /[a-z]/.test(value);
-        const containsNumber = /[0-9]/.test(value);
-        const containsSpecial = /[#?!@$%^&*-]/.test(value);
-        return (
-          containsUppercase &&
-          containsLowercase &&
-          containsNumber &&
-          containsSpecial
-        );
+
+      Uppercase: function(value) {
+        return /[A-Z]/.test(value)
       },
+
+      Lowercase: function(value) {
+        return /[a-z]/.test(value)
+      },
+
+      Number: function(value) {
+        return /[0-9]/.test(value)
+      },
+
+      Special: function(value) {
+        return /[#?!@$%^&*-]/.test(value)
+      }
+
+
+      // valid: function (value) {
+      //   const containsUppercase = /[A-Z]/.test(value);
+      //   const containsLowercase = /[a-z]/.test(value);
+      //   const containsNumber = /[0-9]/.test(value);
+      //   const containsSpecial = /[#?!@$%^&*-]/.test(value);
+      //   return (
+      //     containsUppercase &&
+      //     containsLowercase &&
+      //     containsNumber &&
+      //     containsSpecial
+      //   );
+      // },
     },
   },
   name: "Login",
@@ -93,28 +108,26 @@ export default {
     },
     passwordErrors() {
       const errors = [];            
-      if (!this.$v.password.$invalid) return errors;
+      if (!this.$v.password.$dirty) return errors;
       !this.$v.password.required && errors.push("Senha requerida");
-      !this.$v.password.invalid && errors.push("Senha inválida");
+      !this.$v.password.Uppercase && errors.push("A senha deve conter pelo menos uma letra maiúscula");
+      !this.$v.password.Lowercase && errors.push("A senha deve conter pelo menos uma letra minúscula");
+      !this.$v.password.Number && errors.push("A senha deve conter pelo menos um número");
+      !this.$v.password.Special && errors.push("A senha deve conter pelo menos um caractere especial");
+      // !this.$v.password.required && errors.push("Senha requerida");
+      // !this.$v.password.valid && errors.push("Senha inválida");
       return errors;
     },
+  },
 
-    // registerMe() {
-    //   this.submitted = true;
-    //   this.$v.$touch();
-    //   if (this.$v.$invalid) {
-    //     return false; // stop here if form is invalid
-    //   } else {
-    //     alert("Form Valid. Move to next screen");
-    //   }
-    // },
+  created() {
   },
 
   methods: {
     logar() {
-      if (this.username != "" && this.password != "") {
+      if (this.email != "" && this.password != "") {
         this.$store.dispatch("acesso/ACESSAR", {
-          name: this.username,
+          email: this.email,
           isLogged: true,
         });
       } else {

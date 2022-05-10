@@ -8,7 +8,7 @@
             <div class="header-info">
               <div class="v-list-container">
                 <p class="status" v-text="status"/>
-                <p class="name" v-text="name"/>
+                <p class="name" v-text="email"/>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default {
     ],
   }),
   computed: {
-    ...mapState("acesso", ["name", "logado"]),
+    ...mapState("acesso", ["email", "logado"]),
   },
 // created() {
 //   this.username = this.name.split(' ').shift()

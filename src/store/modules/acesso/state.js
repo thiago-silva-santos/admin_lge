@@ -1,5 +1,6 @@
 export default {
     isLogged: false,
-    name: ""
+    name: "",
+    email: ""
 
 }
