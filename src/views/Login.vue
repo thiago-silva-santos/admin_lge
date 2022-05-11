@@ -13,15 +13,19 @@
           :error-messages="emailErrors"
           @input="$v.email.$touch()"
           required
+          persistent-placeholder
         ></v-text-field>
         <v-text-field
           color="bluemoon"
           label="Senha"
           v-model="password"
-          maxLenght="8"
           required
           :error-messages="passwordErrors"
           @input="$v.password.$touch()"
+          :append-icon="show_password1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show_password1 ? 'text' : 'password'"
+          @click:append="show_password1 = !show_password1"
+          persistent-placeholder
         ></v-text-field>
         <div class="btn-container">
           <v-btn
@@ -46,41 +50,14 @@ export default {
     email: { required, email },
     password: {
       required,
-
-      Uppercase: function(value) {
-        return /[A-Z]/.test(value)
+      Uppercase: function (value) {
+        return value === this.password;
       },
-
-      Lowercase: function(value) {
-        return /[a-z]/.test(value)
-      },
-
-      Number: function(value) {
-        return /[0-9]/.test(value)
-      },
-
-      Special: function(value) {
-        return /[#?!@$%^&*-]/.test(value)
-      }
-
-
-      // valid: function (value) {
-      //   const containsUppercase = /[A-Z]/.test(value);
-      //   const containsLowercase = /[a-z]/.test(value);
-      //   const containsNumber = /[0-9]/.test(value);
-      //   const containsSpecial = /[#?!@$%^&*-]/.test(value);
-      //   return (
-      //     containsUppercase &&
-      //     containsLowercase &&
-      //     containsNumber &&
-      //     containsSpecial
-      //   );
-      // },
     },
   },
   name: "Login",
   data: () => ({
-    exibeSenha: false,
+    show_password1: false,
     email: "",
     password: "",
     // rules: {
@@ -107,21 +84,14 @@ export default {
       return errors;
     },
     passwordErrors() {
-      const errors = [];            
+      const errors = [];
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.required && errors.push("Senha requerida");
-      !this.$v.password.Uppercase && errors.push("A senha deve conter pelo menos uma letra maiúscula");
-      !this.$v.password.Lowercase && errors.push("A senha deve conter pelo menos uma letra minúscula");
-      !this.$v.password.Number && errors.push("A senha deve conter pelo menos um número");
-      !this.$v.password.Special && errors.push("A senha deve conter pelo menos um caractere especial");
-      // !this.$v.password.required && errors.push("Senha requerida");
-      // !this.$v.password.valid && errors.push("Senha inválida");
       return errors;
     },
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
     logar() {
@@ -176,4 +146,12 @@ html {
 .v-btn-login {
   color: white !important;
 }
+
+
+.v-text-field >>> .v-input__append-inner  {
+  position: absolute !important;
+  right: 5px !important;
+  padding: 0;
+}
+
 </style>

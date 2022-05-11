@@ -10,7 +10,10 @@ const blabla = {
         warning: '#FB8C00',
         error: '#FF5252',
         bluemoon: '#0077FF',
-        space_cadet: '#17183B'
+        space_cadet: '#17183B',
+        jet: '#34312D',
+        grey_web: '#7E7F83',
+        preto: '#272727'
     }
 }
 Vue.use(Vuetify);

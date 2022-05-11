@@ -2,11 +2,11 @@
   <section class="login-screen">
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
-        <h1>Registrar uma conta</h1>
+        <h1>Crie uma nova senha</h1>
       </div>
       <v-form class="login-box-textfields" ref="formAcesso" lazy-validation>
         <v-text-field
-          color="bluemoon"
+          color="space_cadet"
           class="text-field"
           label="Nova senha"
           v-model="password"
@@ -19,7 +19,7 @@
           @click:append="show_password1 = !show_password1"
         ></v-text-field>
         <v-text-field
-          color="bluemoon"
+          color="space_cadet"
           class="text-field"
           label="Digite a senha novamente"
           v-model="password2"
@@ -32,7 +32,7 @@
         ></v-text-field>
         <div class="btn-container">
           <v-btn class="space_cadet v-btn-login">
-            Registrar
+            Criar
           </v-btn>
         </div>
       </v-form>
@@ -66,7 +66,7 @@ export default {
     password2: {
       required,
       Same: function (value) {
-        return value === this.password ? true : false
+        return value === this.password
         ;
       },
     },
@@ -125,7 +125,7 @@ html {
   justify-content: center;
   align-content: center;
   align-items: center;
-  background-color: rgb(255, 196, 0);
+  background-color: #17183B;
 }
 .login-box-title {
   margin-bottom: 15px;

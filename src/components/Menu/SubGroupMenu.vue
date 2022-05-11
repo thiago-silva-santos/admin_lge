@@ -1,5 +1,5 @@
 <template>
-  <v-list-group sub-group color="bluemoon">
+  <v-list-group sub-group color="white">
     <template v-slot:activator>
       <v-list-item-content>
         <v-list-item-title>{{ title }}</v-list-item-title>
@@ -18,7 +18,7 @@
         <v-list-item
           :key="index"
           link
-          @click="$router.push(item.path).catch(()=>{})"
+          @click="$router.push(item.path).catch(() => {})"
           class="grandChildren"
         >
           <v-list-item-icon>

@@ -6,8 +6,8 @@
           <template v-if="hasChildren(item)">
             <v-list-group
               :key="index"
-              prepend-icon="mdi-account-circle"
-              color="bluemoon"
+              :prepend-icon="item.icon"
+              color="white"
             >
               <template v-if="hasChildren(item)" v-slot:activator>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -73,7 +73,7 @@ export default {
  <style scoped>
 
 .children {
-  padding-left: 40px;
+  padding-left: 40px !important;
 }
 .menuHeader {
   display: flex;

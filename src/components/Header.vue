@@ -7,8 +7,8 @@
             <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
             <div class="header-info">
               <div class="v-list-container">
-                <p class="status" v-text="status"/>
-                <p class="name" v-text="email"/>
+                <p class="status" v-text="status" />
+                <p class="name" v-text="email" />
               </div>
             </div>
           </div>
@@ -21,12 +21,13 @@
         app
         temporary
         width="300"
+        dark
       >
         <div class="menuHeader">
           <div class="logo">
             <v-img width="25" height="25" src="../assets/logo.png"></v-img>
           </div>
-          <h1>LIWEB - EVENTOS</h1>
+          <h1 class="menuHeaderTitle">LIWEB - EVENTOS</h1>
         </div>
         <menu-list-new :items="items" />
       </v-navigation-drawer>
@@ -49,10 +50,15 @@ export default {
         path: "/About",
       },
       {
+        title: "Nova Senha",
+        icon: "key",
+        path: "/password",
+      },
+      {
         title: "Station",
-        icon: "mdi-forum",
+        icon: "support",
         children: [
-          { title: "Child 1", icon: "mdi-home", path: "/Home" },
+          { title: "Child 1", icon: "support", path: "/Home" },
           { title: "Child 2", icon: "mdi-home", path: "/About" },
           {
             title: "Child 3",
@@ -83,9 +89,9 @@ export default {
   computed: {
     ...mapState("acesso", ["email", "logado"]),
   },
-// created() {
-//   this.username = this.name.split(' ').shift()
-// }
+  // created() {
+  //   this.username = this.name.split(' ').shift()
+  // }
 };
 </script>
 <style scoped>
@@ -127,7 +133,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80px;
+  min-height: 56px;
+  border-bottom: 3px rgba(255, 255, 255, 0.300) solid;
+}
+.menuHeaderTitle {
+  color: white;
+  font-size: 16px;
 }
 .logo {
   margin-right: 10px;
