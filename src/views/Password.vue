@@ -1,5 +1,10 @@
 <template>
   <section class="login-screen">
+    <EmptyFieldsAlertVue
+      :title="revealAlert.title"
+      @click="revealAlert.status = !revealAlert.status"
+      v-if="revealAlert.status"
+    />
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
         <h1>Crie uma nova senha</h1>
@@ -17,6 +22,7 @@
           :append-icon="show_password1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show_password1 ? 'text' : 'password'"
           @click:append="show_password1 = !show_password1"
+          tabindex="1"
         ></v-text-field>
         <v-text-field
           color="space_cadet"
@@ -29,9 +35,10 @@
           :append-icon="show_password2 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show_password2 ? 'text' : 'password'"
           @click:append="show_password2 = !show_password2"
+          tabindex="1"
         ></v-text-field>
         <div class="btn-container">
-          <v-btn class="space_cadet v-btn-login">
+          <v-btn class="space_cadet v-btn-login" @click="enviar()">
             Criar
           </v-btn>
         </div>
@@ -42,7 +49,11 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import EmptyFieldsAlertVue from "../components/Alerts/EmptyFieldsAlert.vue";
 export default {
+  components: {
+    EmptyFieldsAlertVue,
+  },
   validations: {
     password: {
       required,
@@ -66,8 +77,7 @@ export default {
     password2: {
       required,
       Same: function (value) {
-        return value === this.password
-        ;
+        return value === this.password;
       },
     },
   },
@@ -77,9 +87,12 @@ export default {
     show_password2: false,
     password: "",
     password2: "",
+    revealAlert: {
+      status: false,
+      title: "",
+    },
   }),
   computed: {
-
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
@@ -99,13 +112,49 @@ export default {
       const errors = [];
       if (!this.$v.password2.$dirty) return errors;
       !this.$v.password2.required && errors.push("Senha requerida");
-      !this.$v.password2.Same && errors.push("A senha deve ser igual")
+      !this.$v.password2.Same && errors.push("A senha deve ser igual");
 
       return errors;
     },
   },
 
   methods: {
+    enviar() {
+      if (this.validateSubmit()) {
+        this.$store.dispatch("acesso/NOVA_SENHA", {
+          password: this.password,
+        });
+      } else if(this.password == "" && this.password2 == "") {
+        this.revealAlert.status = true;
+        this.revealAlert.title = "Favor preencher os campos!"
+      } else {
+        this.revealAlert.status = true;
+        this.revealAlert.title = "Alguns dados estão inválidos!"
+      }
+    },
+
+    validateSubmit() {
+      return (
+        this.$v.password.Lowercase &&
+        this.$v.password.Uppercase &&
+        this.$v.password.Special &&
+        this.$v.password.Number &&
+        this.$v.password2.Same &&
+        this.password != "" &&
+        this.password2 != ""
+      );
+    },
+  },
+
+  watch: {
+    revealAlert(v) {
+      console.log(v);
+    },
+    password(v) {
+      if (v) {
+        this.revealAlert.status = false;
+      }
+    },
   },
 };
 </script>
@@ -125,7 +174,7 @@ html {
   justify-content: center;
   align-content: center;
   align-items: center;
-  background-color: #17183B;
+  background-color: #17183b;
 }
 .login-box-title {
   margin-bottom: 15px;
@@ -147,5 +196,11 @@ html {
 }
 .text-field {
   margin-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+  .login-container-box {
+    width: 90%;
+  }
 }
 </style>

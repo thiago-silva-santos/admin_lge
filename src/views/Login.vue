@@ -1,5 +1,10 @@
 <template>
   <section class="login-screen" color="bluemoon">
+    <EmptyFieldsAlertVue
+      :title="revealAlert.title"
+      @click="revealAlert.status = !revealAlert.status"
+      v-if="revealAlert.status"
+    />
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
         <h1>Entre com sua conta</h1>
@@ -13,8 +18,9 @@
           :error-messages="emailErrors"
           @input="$v.email.$touch()"
           required
-          persistent-placeholder
+          tabindex="1"
         ></v-text-field>
+
         <v-text-field
           color="bluemoon"
           label="Senha"
@@ -25,14 +31,10 @@
           :append-icon="show_password1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show_password1 ? 'text' : 'password'"
           @click:append="show_password1 = !show_password1"
-          persistent-placeholder
+          tabindex="1"
         ></v-text-field>
         <div class="btn-container">
-          <v-btn
-            class="bluemoon v-btn-login"
-            v-on:click="logar()"
-            type="submit"
-          >
+          <v-btn class="bluemoon v-btn-login" v-on:click="logar()">
             Entrar
           </v-btn>
         </div>
@@ -45,7 +47,11 @@
 // import { mapActions } from "vuex";
 
 import { required, email } from "vuelidate/lib/validators";
+import EmptyFieldsAlertVue from "../components/Alerts/EmptyFieldsAlert.vue";
 export default {
+  components: {
+    EmptyFieldsAlertVue,
+  },
   validations: {
     email: { required, email },
     password: {
@@ -60,19 +66,10 @@ export default {
     show_password1: false,
     email: "",
     password: "",
-    // rules: {
-    //   emailRules: [
-    //     (v) => !!v || "E-mail requerido",
-    //     (v) => v.length >= 8 || "Mínimo 8 caracteres",
-    //     (v) => v.length <= 40 || "Máximo 30 caracteres",
-    //     v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail inválido',
-    //   ],
-
-    //   passwordRules: [
-    //     (v) => !!v || "Senha requerida",
-    //     (v) => v.length >= 8 || "Mínimo 6 caracteres",
-    //   ],
-    // },
+    revealAlert: {
+      status: false,
+      title: "",
+    },
   }),
 
   computed: {
@@ -95,14 +92,36 @@ export default {
 
   methods: {
     logar() {
-      if (this.email != "" && this.password != "") {
+      if (this.validateSubmit()) {
         this.$store.dispatch("acesso/ACESSAR", {
           email: this.email,
           isLogged: true,
         });
+      } else if (this.email == "" && this.password == "") {
+        this.revealAlert.status = true;
+        this.revealAlert.title = "Favor preencher os campos!";
       } else {
-        alert("Favor preencher os campos!");
+        this.revealAlert.status = true;
+        this.revealAlert.title = "Alguns dados estão inválidos!";
       }
+    },
+
+    validateSubmit() {
+      return (
+        this.$v.email.email &&
+        this.$v.password &&
+        this.email != "" &&
+        this.password != ""
+      );
+    },
+  },
+
+  watch: {
+    email(value) {
+      if (value) this.revealAlert.status = false;
+    },
+    revealAlert(value) {
+      console.log(value.status);
     },
   },
 };
@@ -147,11 +166,15 @@ html {
   color: white !important;
 }
 
-
-.v-text-field >>> .v-input__append-inner  {
+.v-text-field >>> .v-input__append-inner {
   position: absolute !important;
   right: 5px !important;
   padding: 0;
 }
 
+@media (max-width: 600px) {
+  .login-container-box {
+    width: 90%;
+  }
+}
 </style>

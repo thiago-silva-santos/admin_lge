@@ -7,6 +7,12 @@ export default {
             router.push('/home')
         }
     },
+    NOVA_SENHA({ commit }, payload) {
+        if (payload) {
+            commit("acesso/SET_NOVA_SENHA", payload, { root: true });
+            router.push('/home')
+        }
+    },
     
     // commit("loading/EXIBE_LOADING", true, { root: true });
     // commit("loading/ESCONDE_LOADING", true, { root: true });
