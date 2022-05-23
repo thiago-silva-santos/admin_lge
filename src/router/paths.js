@@ -41,10 +41,23 @@ export default [
             default: Home,
             header: Header
         },
-    meta: {
+        meta: {
 
-        requireAuth: true
-    }
+            requireAuth: true
+        }
+
+    },
+    {
+        path: '/manager',
+        name: 'Manager',
+        components: {
+            default: () => import('../views/Manager.vue'),
+            header: Header
+        },
+        meta: {
+
+            requireAuth: true
+        }
 
     },
     {

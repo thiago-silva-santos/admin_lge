@@ -44,6 +44,7 @@ export default {
     status: "Logado como:",
     items: [
       { title: "Home", icon: "mdi-home", path: "/Home" },
+      { title: "Gerenciador", icon: "mdi-briefcase-clock", path: "/manager" },
       {
         title: "About",
         icon: "mdi-account",
