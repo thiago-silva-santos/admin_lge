@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid class="Container">
+  <div class="Container">
     <v-card
-      class="cardContainer mt-10"
+      class="cardContainer"
       max-width="1200px"
+      width="100%"
       elevation="5"
-      style="margin: 0 auto"
     >
       <v-card class="pa-5">
         <v-row>
@@ -145,36 +145,80 @@
         </v-row>
       </v-card>
     </v-card>
-    <v-dialog v-model="dialogIcon" max-width="940">
-      <v-card>
+    <v-dialog v-model="dialogIcon" max-width="1340">
+      <v-card class="pa-2" flat tile>
         <v-card-title class="text-h5">
           O menu usa ícones do Google Fonts Material
         </v-card-title>
 
-        <v-text-field label="Procurar ícone" prepend-inner-icon="search" />
+        <v-container fluid>
+          <v-card flat>
+            <v-data-iterator
+              :items="names"
+              :items-per-page.sync="itemsPerPage"
+              :page.sync="page"
+              :search="search"
+              :sort-desc="sortDesc"
+              hide-default-footer
+            >
+              <template v-slot:header>
+                <v-toolbar  class="mb-1" flat>
+                  <v-text-field
+                    v-model="search"
+                    clearable
+                    flat
+                    solo-inverted
+                    hide-details
+                    prepend-inner-icon="mdi-magnify"
+                    label="Procurar ícone"
+                    color="white"
+                  ></v-text-field>
+                </v-toolbar>
+              </template>
 
-        <v-card>
-          <v-row>
-            <!-- <v-col v-for="(item, index) in icons" :key="index">
-              <v-icon>mdi-{{ item.name }}</v-icon>
-            </v-col> -->
-          </v-row>
-        </v-card>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn color="green darken-1" text @click="dialogIcon = false">
-            Disagree
-          </v-btn>
-
-          <v-btn color="green darken-1" text @click="dialogIcon = false">
-            Agree
-          </v-btn>
-        </v-card-actions>
+              <template v-slot:default="props">
+                <v-card class="pa-5" flat>
+                  <v-row align="center">
+                    <v-col
+                      v-for="item in props.items"
+                      :key="item.name"
+                      cols="12"
+                      sm="6"
+                      md="4"
+                      lg="3"
+                    >
+                      <v-card class="pa-2">
+                        <v-row class="pa-2" align="center">
+                          <v-col class="pa-0" cols="10" sm="10" md="10" lg="10">
+                            
+                            <v-card-text class="font-weight-bold pa-2">
+                              {{ item.name }}
+                            </v-card-text>
+                          </v-col>
+                          <v-col class="pa-0" cols="2" sm="2" md="2" lg="2">
+                            <v-icon> mdi-{{ item.name }} </v-icon>
+                          </v-col>
+                        </v-row>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </template>
+            </v-data-iterator>
+          </v-card>
+        </v-container>
+        <!-- <v-container>
+          <v-card class="pa-2">
+            <v-row>
+              <v-col v-for="(item, index) in icons" :key="index">
+                <v-icon>mdi-{{ item.name }}</v-icon>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-container> -->
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -267,6 +311,14 @@ export default {
     everyItem: {},
     selectedItem: {},
     dialogIcon: false,
+    icons: {},
+    itemsPerPageArray: [16],
+    search: "",
+    filter: {},
+    sortDesc: false,
+    page: 1,
+    itemsPerPage: 60,
+    names: [],
   }),
   methods: {
     alertando(value) {
@@ -276,15 +328,26 @@ export default {
       this.selectedItem = value;
     },
   },
-  created() {
-    this.$http.get("../assets/icons.json").then((response) => {
-      console.log(response)
-    });
+  async created() {
+    await this.$http("assets/icons.json").then(
+      (response) => {
+        this.names = response.data;
+      }
+    );
+
+    await console.log(this.icons);
   },
 };
 </script>
 
 <style scoped>
+.Container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+}
 .itemSelected {
   display: flex;
   align-content: center;
@@ -298,6 +361,7 @@ export default {
   padding: 0px;
   margin: 0px;
 }
+
 
 @media (max-width: 1264px) {
   .footer-btn {

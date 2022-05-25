@@ -7,8 +7,10 @@ import vuetify from './plugins/vuetify'
 import MenuList from './components/MenuList'
 import SubGroupMenu from './components/Menu/SubGroupMenu'
 
-Vue.config.productionTip = false
+import './plugins/axios'
+
 Vue.use(Vuelidate)
+Vue.config.productionTip = false
 Vue.component("menu-list-new", MenuList)
 Vue.component("sub-group-menu", SubGroupMenu)
 new Vue({
