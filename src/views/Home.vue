@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="imgContainer">
-      <img id="img" alt="Vue logo" src="../assets/logo.png" />
+      <!-- <img id="img" alt="Vue logo"  /> -->
     </div>
     <section class="text">
       <HelloWorld msg="Welcome to Your Vue.js App" />

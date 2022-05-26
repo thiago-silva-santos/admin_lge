@@ -25,7 +25,7 @@
       >
         <div class="menuHeader">
           <div class="logo">
-            <v-img width="25" height="25" src="../assets/logo.png"></v-img>
+            <!-- <v-img width="25" height="25" src="../assets/logo.png"></v-img> -->
           </div>
           <h1 class="menuHeaderTitle">LIWEB - EVENTOS</h1>
         </div>

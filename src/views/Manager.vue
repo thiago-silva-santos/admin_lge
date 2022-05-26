@@ -1,11 +1,6 @@
 <template>
   <div class="Container">
-    <v-card
-      class="cardContainer"
-      max-width="1200px"
-      width="100%"
-      elevation="5"
-    >
+    <v-card class="cardContainer" max-width="1200px" width="100%" elevation="5">
       <v-card class="pa-5">
         <v-row>
           <v-col class="colunaUM">
@@ -108,7 +103,7 @@
                             :value="selectedItem.icon"
                             label="Ícone"
                             append-icon="mdi-alert-circle-outline"
-                            @click:append="dialogIcon = !dialogIcon"
+                            @click:append="getIcons()"
                           >
                           </v-text-field>
                         </v-col>
@@ -148,23 +143,26 @@
     <v-dialog v-model="dialogIcon" max-width="1340">
       <v-card class="pa-2" flat tile>
         <v-card-title class="text-h5">
-          O menu usa ícones do Google Fonts Material
+          O menu usa ícones do Material Design Icons
         </v-card-title>
 
         <v-container fluid>
           <v-card flat>
             <v-data-iterator
-              :items="names"
-              :items-per-page.sync="itemsPerPage"
-              :page.sync="page"
-              :search="search"
-              :sort-desc="sortDesc"
+              :items="dataIterator.iconNames"
+              :items-per-page.sync="dataIterator.itemsPerPage"
+              :page.sync="dataIterator.page"
+              :search="dataIterator.search"
+              :footer-props="{
+                'items-per-page-text': 'Itens por Página',
+                'items-per-page-options': [20, 30, 40, 50, 60],
+              }"
               hide-default-footer
             >
               <template v-slot:header>
-                <v-toolbar  class="mb-1" flat>
+                <v-toolbar class="mb-1" flat>
                   <v-text-field
-                    v-model="search"
+                    v-model="dataIterator.search"
                     clearable
                     flat
                     solo-inverted
@@ -190,7 +188,6 @@
                       <v-card class="pa-2">
                         <v-row class="pa-2" align="center">
                           <v-col class="pa-0" cols="10" sm="10" md="10" lg="10">
-                            
                             <v-card-text class="font-weight-bold pa-2">
                               {{ item.name }}
                             </v-card-text>
@@ -204,25 +201,73 @@
                   </v-row>
                 </v-card>
               </template>
+              <template v-slot:footer>
+                <v-row class="mt-2 pa-5" align="center" justify="center">
+                  <span class="grey--text">Items per page</span>
+                  <!-- <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        dark
+                        text
+                        color="primary"
+                        class="ml-2"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        {{ dataIterator.itemsPerPage }}
+                        <v-icon>mdi-chevron-down</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(
+                          number, index
+                        ) in dataIterator.itemsPerPageArray"
+                        :key="index"
+                        @click="updateItemsPerPage(number)"
+                      >
+                        <v-list-item-title>{{ number }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu> -->
+
+                  <v-spacer></v-spacer>
+
+                  <span class="mr-4 grey--text">
+                    Página {{ dataIterator.page }} de {{ numberOfPages }}
+                  </span>
+                  <v-btn
+                    fab
+                    dark
+                    color="blue darken-3"
+                    class="mr-1"
+                    @click="formerPage"
+                    small
+                  >
+                    <v-icon>mdi-chevron-left</v-icon>
+                  </v-btn>
+                  <v-btn
+                    fab
+                    dark
+                    color="blue darken-3"
+                    class="ml-1"
+                    @click="nextPage"
+                    small
+                  >
+                    <v-icon>mdi-chevron-right</v-icon>
+                  </v-btn>
+                </v-row>
+              </template>
             </v-data-iterator>
           </v-card>
         </v-container>
-        <!-- <v-container>
-          <v-card class="pa-2">
-            <v-row>
-              <v-col v-for="(item, index) in icons" :key="index">
-                <v-icon>mdi-{{ item.name }}</v-icon>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-container> -->
       </v-card>
-    </v-dialog>
+    </v-dialog>    
   </div>
 </template>
 
 <script>
-export default {
+export default {  
   data: () => ({
     items: [
       {
@@ -311,15 +356,25 @@ export default {
     everyItem: {},
     selectedItem: {},
     dialogIcon: false,
-    icons: {},
-    itemsPerPageArray: [16],
-    search: "",
-    filter: {},
-    sortDesc: false,
-    page: 1,
-    itemsPerPage: 60,
-    names: [],
+    dataIterator: {
+      itemsPerPageArray: [20, 42, 60],
+      search: "",
+      page: 1,
+      itemsPerPage: 20,
+      iconNames: [],
+      itemsOnPage: [],
+    },
   }),
+  computed: {
+    numberOfPages() {      
+      return Math.ceil(
+        this.listItemsOnPage.length / this.dataIterator.itemsPerPage
+      );
+    },
+    listItemsOnPage() {
+      return this.dataIterator.iconNames.filter((item) => item.name.includes(this.dataIterator.search));
+    }
+  },
   methods: {
     alertando(value) {
       console.log(value);
@@ -327,15 +382,43 @@ export default {
     bindItems(value) {
       this.selectedItem = value;
     },
+    nextPage() {
+      if (this.dataIterator.page + 1 <= this.numberOfPages)
+        this.dataIterator.page += 1;
+    },
+    formerPage() {
+      if (this.dataIterator.page - 1 >= 1) this.dataIterator.page -= 1;
+    },
+    updateItemsPerPage(number) {
+      this.dataIterator.itemsPerPage = number;
+    },
+    async getIcons() {
+      await this.$http("assets/icons.json").then((response) => {
+        this.dataIterator.iconNames = response.data;
+        // const data = this.dataIterator.iconNames;
+        // const newData = this.dataIterator.itemsOnPage;
+        // data.map((item) => {
+        //   return newData.push(item.name);
+        // });
+        this.dialogIcon = !this.dialogIcon;
+        //this.getItemsOnPage("home");
+      });
+    },
   },
-  async created() {
-    await this.$http("assets/icons.json").then(
-      (response) => {
-        this.names = response.data;
-      }
-    );
+  // created() {
+  //   console.log(JSON.stringify(this.dataIterator.iconNames))
+  // },
 
-    await console.log(this.icons);
+  watch: {
+    // "dataIterator.iconNames": function (value) {
+    //   console.log("Itens por página " + JSON.stringify(value.map((i) => {
+    //     return i.name
+    //   })));
+    // },
+    // "dataIterator.itemsOnPage": function (value) {
+    //   console.log("Itens na página " + JSON.stringify(value));
+    // },
+    deep: true,
   },
 };
 </script>
@@ -361,7 +444,6 @@ export default {
   padding: 0px;
   margin: 0px;
 }
-
 
 @media (max-width: 1264px) {
   .footer-btn {
