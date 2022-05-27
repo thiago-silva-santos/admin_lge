@@ -55,7 +55,7 @@
                   <v-row class="pa-2">
                     <v-col>
                       <v-text-field
-                        color="bluemoon"
+                        color="primary"
                         :value="selectedItem.name"
                         label="Nome"
                       >
@@ -65,7 +65,7 @@
                   <v-row class="pa-2">
                     <v-col>
                       <v-text-field
-                        color="bluemoon"
+                        color="primary"
                         :value="selectedItem.route"
                         label="Rota"
                       >
@@ -75,7 +75,7 @@
                   <v-row class="pa-2">
                     <v-col>
                       <v-text-field
-                        color="bluemoon"
+                        color="primary"
                         :value="selectedItem.role"
                         label="Permissões"
                       >
@@ -87,7 +87,7 @@
                       <v-row class="pa-2">
                         <v-col>
                           <v-text-field
-                            color="bluemoon"
+                            color="primary"
                             :value="selectedItem.idMenu"
                             label="Menu Pai"
                           >
@@ -99,10 +99,11 @@
                       <v-row class="pa-2">
                         <v-col>
                           <v-text-field
-                            color="bluemoon"
+                            color="primary"
                             :value="selectedItem.icon"
                             label="Ícone"
                             append-icon="mdi-alert-circle-outline"
+                            :prepend-icon="selectedItem.icon"
                             @click:append="getIcons()"
                           >
                           </v-text-field>
@@ -129,7 +130,7 @@
                 </v-btn>
               </v-col>
               <v-col cols="3 pa-0" sm="3" md="3" lg="3" align="right">
-                <v-btn class="footer-btn bluemoon" dark>
+                <v-btn class="footer-btn primary" dark>
                   <span class="footer-btn-title"> Salvar</span>
 
                   <v-icon class="ml-2 pa-0"> mdi-content-save </v-icon>
@@ -142,8 +143,8 @@
     </v-card>
     <v-dialog v-model="dialogIcon" max-width="1340">
       <v-card class="pa-2" flat tile>
-        <v-card-title class="text-h5">
-          O menu usa ícones do Material Design Icons
+        <v-card-title class="text-h5 pl-8">
+          Material Design Icons
         </v-card-title>
 
         <v-container fluid>
@@ -153,30 +154,28 @@
               :items-per-page.sync="dataIterator.itemsPerPage"
               :page.sync="dataIterator.page"
               :search="dataIterator.search"
-              :footer-props="{
-                'items-per-page-text': 'Itens por Página',
-                'items-per-page-options': [20, 30, 40, 50, 60],
-              }"
               hide-default-footer
             >
               <template v-slot:header>
                 <v-toolbar class="mb-1" flat>
                   <v-text-field
                     v-model="dataIterator.search"
-                    clearable
+                    :append-icon="dataIterator.search ? 'mdi-close' : '' "
+                    @click:append="clearSearch()"
                     flat
                     solo-inverted
                     hide-details
                     prepend-inner-icon="mdi-magnify"
                     label="Procurar ícone"
                     color="white"
+                    
                   ></v-text-field>
                 </v-toolbar>
               </template>
 
               <template v-slot:default="props">
-                <v-card class="pa-5" flat>
-                  <v-row align="center">
+                <v-card class="pa-5" flat  min-height="576">
+                  <v-row>
                     <v-col
                       v-for="item in props.items"
                       :key="item.name"
@@ -185,14 +184,18 @@
                       md="4"
                       lg="3"
                     >
-                      <v-card class="pa-2">
+                      <v-card
+                        class="pa-2"
+                        @click="copyIcon(item.name)"
+                        style="cursor: pointer"
+                      >
                         <v-row class="pa-2" align="center">
                           <v-col class="pa-0" cols="10" sm="10" md="10" lg="10">
                             <v-card-text class="font-weight-bold pa-2">
                               {{ item.name }}
                             </v-card-text>
                           </v-col>
-                          <v-col class="pa-0" cols="2" sm="2" md="2" lg="2">
+                          <v-col class="pa-0" cols="2" sm="2" md="2" lg="2" align="center">
                             <v-icon> mdi-{{ item.name }} </v-icon>
                           </v-col>
                         </v-row>
@@ -202,15 +205,15 @@
                 </v-card>
               </template>
               <template v-slot:footer>
-                <v-row class="mt-2 pa-5" align="center" justify="center">
+                <v-row class="mx-1 pa-5" align="center" justify="center">
                   <span class="grey--text">Items per page</span>
-                  <!-- <v-menu offset-y>
+                  <v-menu offset-y right nudge-top="10">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         dark
                         text
                         color="primary"
-                        class="ml-2"
+                        class="ml-2 pa-0"
                         v-bind="attrs"
                         v-on="on"
                       >
@@ -229,7 +232,7 @@
                         <v-list-item-title>{{ number }}</v-list-item-title>
                       </v-list-item>
                     </v-list>
-                  </v-menu> -->
+                  </v-menu>
 
                   <v-spacer></v-spacer>
 
@@ -238,21 +241,21 @@
                   </span>
                   <v-btn
                     fab
-                    dark
-                    color="blue darken-3"
+                    color="primary"
                     class="mr-1"
                     @click="formerPage"
                     small
+                    :disabled="dataIterator.page <= 1"
                   >
                     <v-icon>mdi-chevron-left</v-icon>
                   </v-btn>
                   <v-btn
                     fab
-                    dark
-                    color="blue darken-3"
+                    color="primary"
                     class="ml-1"
                     @click="nextPage"
                     small
+                    :disabled="dataIterator.page === numberOfPages"
                   >
                     <v-icon>mdi-chevron-right</v-icon>
                   </v-btn>
@@ -262,12 +265,12 @@
           </v-card>
         </v-container>
       </v-card>
-    </v-dialog>    
+    </v-dialog>
   </div>
 </template>
 
 <script>
-export default {  
+export default {
   data: () => ({
     items: [
       {
@@ -287,7 +290,7 @@ export default {
             name: "Browser",
             route: "applications/browser",
             idMenu: "1",
-            icon: "mdi-home",
+            icon: "mdi-trash",
             role: "Application.browser",
           },
           {
@@ -295,7 +298,7 @@ export default {
             name: "Webstorm",
             route: "applications/webstorm",
             idMenu: "1",
-            icon: "mdi-home",
+            icon: "mdi-alert",
             role: "Application.webstorm",
           },
         ],
@@ -357,30 +360,20 @@ export default {
     selectedItem: {},
     dialogIcon: false,
     dataIterator: {
-      itemsPerPageArray: [20, 42, 60],
+      itemsPerPageArray: [32, 40, 60],
       search: "",
       page: 1,
-      itemsPerPage: 20,
+      itemsPerPage: 32,
       iconNames: [],
-      itemsOnPage: [],
+      hasIcon: false,
+      copyIconName: "",
     },
   }),
-  computed: {
-    numberOfPages() {      
-      return Math.ceil(
-        this.listItemsOnPage.length / this.dataIterator.itemsPerPage
-      );
-    },
-    listItemsOnPage() {
-      return this.dataIterator.iconNames.filter((item) => item.name.includes(this.dataIterator.search));
-    }
-  },
+
   methods: {
-    alertando(value) {
-      console.log(value);
-    },
     bindItems(value) {
       this.selectedItem = value;
+
     },
     nextPage() {
       if (this.dataIterator.page + 1 <= this.numberOfPages)
@@ -392,32 +385,45 @@ export default {
     updateItemsPerPage(number) {
       this.dataIterator.itemsPerPage = number;
     },
+    copyIcon(value) {
+      this.selectedItem.icon = `mdi-${value}`;
+      this.dataIterator.search = ""
+      this.dialogIcon = !this.dialogIcon;
+    },
+    clearSearch(){
+      this.dataIterator.search = ""
+      this.dataIterator.page = 1
+    },
     async getIcons() {
       await this.$http("assets/icons.json").then((response) => {
         this.dataIterator.iconNames = response.data;
-        // const data = this.dataIterator.iconNames;
-        // const newData = this.dataIterator.itemsOnPage;
-        // data.map((item) => {
-        //   return newData.push(item.name);
-        // });
         this.dialogIcon = !this.dialogIcon;
-        //this.getItemsOnPage("home");
       });
     },
   },
-  // created() {
-  //   console.log(JSON.stringify(this.dataIterator.iconNames))
-  // },
+  computed: {
+    numberOfPages() {
+      return Math.ceil(
+        this.listItemsOnPage.length / this.dataIterator.itemsPerPage
+      );
+    },
+    listItemsOnPage() {
+      return this.dataIterator.iconNames.filter((item) =>
+        item.name.includes(this.dataIterator.search)
+      );
+    },
+  },
+
 
   watch: {
-    // "dataIterator.iconNames": function (value) {
-    //   console.log("Itens por página " + JSON.stringify(value.map((i) => {
-    //     return i.name
-    //   })));
-    // },
-    // "dataIterator.itemsOnPage": function (value) {
-    //   console.log("Itens na página " + JSON.stringify(value));
-    // },
+
+    "dataIterator.search": function (value) {
+     if(value) {
+       this.dataIterator.page = 1
+     } else {
+       this.dataIterator.page = 1
+     }
+    },
     deep: true,
   },
 };
