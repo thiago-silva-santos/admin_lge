@@ -61,6 +61,19 @@ export default [
 
     },
     {
+        path: '/manager2',
+        name: 'Manager2',
+        components: {
+            default: () => import('../views/Manager2.vue'),
+            header: Header
+        },
+        meta: {
+
+            requireAuth: true
+        }
+
+    },
+    {
         path: '/about',
         name: 'About',
         components: {
