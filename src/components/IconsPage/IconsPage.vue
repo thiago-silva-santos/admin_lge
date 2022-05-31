@@ -1,8 +1,15 @@
 <template>
-  <v-dialog v-model="showDialog" max-width="1340">
+  <v-dialog v-model="showDialog" max-width="1440" persistent>
     <v-card class="pa-2" flat tile>
-      <v-card-title class="text-h5 pl-8"> Material Design Icons </v-card-title>
-
+      <div class="header">
+        <v-card-title class="text-h5 pa-0">
+          Material Design Icons
+        </v-card-title>
+        <v-btn elevation="0" class="exit-btn px-2" @click="closeDialog()" color="error" dark>
+          <v-icon> mdi-exit-to-app </v-icon>
+          Fechar
+        </v-btn>
+      </div>
       <v-container fluid>
         <v-card flat>
           <v-data-iterator
@@ -177,16 +184,16 @@ export default {
       this.selectedItem.icon = `mdi-${value}`;
       this.dataIterator.search = "";
       this.showDialog = false;
-      this.$emit('select:icon', `mdi-${value}`)
+      this.$emit("select:icon", `mdi-${value}`);
     },
     clearSearch() {
       this.dataIterator.search = "";
       this.dataIterator.page = 1;
     },
-
-    getEmit(event) {
-      console.log(event);
-      this.dialogIcon = !this.dialogIcon;
+    closeDialog() {
+      this.dataIterator.search = "";
+      this.dataIterator.page = 1;
+      this.showDialog = false;
     },
   },
   computed: {
@@ -200,7 +207,7 @@ export default {
         item.name.includes(this.dataIterator.search)
       );
     },
-  
+
     showDialog: {
       get() {
         return this.value;
@@ -223,51 +230,21 @@ export default {
         this.dataIterator.page = 1;
       }
     },
+
     deep: true,
   },
 };
 </script>
 
 <style scoped>
-.Container {
-  height: 90vh;
+.header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  justify-content: space-between;
+  padding: 10px 30px;
 }
-.itemSelected {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  height: 48px;
-}
-.v-treeview-node__root {
-  min-height: 0px;
-  max-height: 25px;
-  padding: 0px;
-  margin: 0px;
+.exit-btn {
+  min-width: none;
 }
 
-@media (max-width: 1264px) {
-  .footer-btn {
-    padding: 0px !important;
-    min-width: 110px !important;
-    font-size: 0.9vw;
-  }
-}
-@media (max-width: 1040px) {
-  .footer-btn-title {
-    display: none;
-  }
-  .footer-btn {
-    padding: 0 !important;
-    width: 50px;
-    min-width: 0px !important;
-  }
-  .footer-btn .v-icon {
-    margin: 0 !important;
-  }
-}
 </style>

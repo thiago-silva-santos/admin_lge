@@ -1,0 +1,189 @@
+[
+    {
+        "id": 1,
+        "name": "Applications",
+        "children": [
+            {
+                "id": 1,
+                "name": "Calendar",
+                "route": "applications/calendar",
+                "idMenu": "1",
+                "icon": "mdi-home",
+                "role": "Application.calendar"
+            },
+            {
+                "id": 2,
+                "name": "Browser",
+                "route": "applications/browser",
+                "idMenu": "1",
+                "icon": "mdi-trash",
+                "role": "Application.browser"
+            },
+            {
+                "id": 3,
+                "name": "Webstorm",
+                "route": "applications/webstorm",
+                "idMenu": "1",
+                "icon": "mdi-alert",
+                "role": "Application.webstorm"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Clientes",
+        "children": [
+            {
+                "id": 1,
+                "name": "Micro-empresas",
+                "route": "applications/micro-empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Cafeteria",
+                        "route": "applications/Cafeteria",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.cafeteria"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Petshop",
+                        "route": "applications/petshop",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.petshop"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Empresas",
+                "route": "applications/empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Google",
+                        "route": "applications/google",
+                        "idMenu": "3",
+                        "icon": "mdi-browser",
+                        "role": "Application.google"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Amazon",
+                        "route": "applications/amazon",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.amazon"
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "id": 4,
+        "name": "Brands",
+        "children": [
+            {
+                "id": 1,
+                "name": "Micro-empresas",
+                "route": "applications/micro-empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Cafeteria",
+                        "route": "applications/Cafeteria",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.cafeteria"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Petshop",
+                        "route": "applications/petshop",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.petshop"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Empresas",
+                "route": "applications/empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Google",
+                        "route": "applications/google",
+                        "idMenu": "3",
+                        "icon": "mdi-browser",
+                        "role": "Application.google"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Amazon",
+                        "route": "applications/amazon",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.amazon"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Companies",
+        "children": [
+            {
+                "id": 1,
+                "name": "Micro-empresas",
+                "route": "applications/micro-empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Cafeteria",
+                        "route": "applications/Cafeteria",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.cafeteria"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Petshop",
+                        "route": "applications/petshop",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.petshop"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Empresas",
+                "route": "applications/empresas",
+                "children": [
+                    {
+                        "id": 1,
+                        "name": "Google",
+                        "route": "applications/google",
+                        "idMenu": "3",
+                        "icon": "mdi-browser",
+                        "role": "Application.google"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Amazon",
+                        "route": "applications/amazon",
+                        "idMenu": "3",
+                        "icon": "mdi-home",
+                        "role": "Application.amazon"
+                    }
+                ]
+            }
+        ]
+    }
+]

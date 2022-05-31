@@ -2,7 +2,9 @@
   <v-app>
     <div>
       <router-view name="header" />
-      <router-view class="router-view" />
+      <div class="router-view">
+        <router-view  />
+      </div>
       <!-- <Loading/> -->
     </div>
   </v-app>
@@ -13,6 +15,6 @@ body {
   font-family: "Roboto", sans-serif;
 }
 .router-view {
-  padding-top: 64px;
+  padding-top: 64px !important;
 }
 </style>
