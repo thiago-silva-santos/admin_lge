@@ -16,7 +16,9 @@ export default [
     {
         path: '/login',
         name: 'Login',
-        component: Login,
+        components: {
+            login: Login
+        },
     },
     {
         path: '/captcha',

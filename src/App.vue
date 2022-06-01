@@ -2,8 +2,9 @@
   <v-app>
     <div>
       <router-view name="header" />
-      <div class="router-view">
-        <router-view  />
+        <router-view name="login" />
+      <div class="router-view-items">
+        <router-view />
       </div>
       <!-- <Loading/> -->
     </div>
@@ -14,7 +15,11 @@
 body {
   font-family: "Roboto", sans-serif;
 }
-.router-view {
+.router-view-items {
   padding-top: 64px !important;
 }
+.router-view-items:empty {
+  display: none !important;
+}
+
 </style>
