@@ -75,12 +75,6 @@
         "name": "account-arrow-up-outline"
     },
     {
-        "name": "account-badge"
-    },
-    {
-        "name": "account-badge-outline"
-    },
-    {
         "name": "account-box"
     },
     {
@@ -261,12 +255,6 @@
         "name": "account-network"
     },
     {
-        "name": "account-network-off"
-    },
-    {
-        "name": "account-network-off-outline"
-    },
-    {
         "name": "account-network-outline"
     },
     {
@@ -373,9 +361,6 @@
     },
     {
         "name": "account-tie-voice-outline"
-    },
-    {
-        "name": "account-tie-woman"
     },
     {
         "name": "account-voice"

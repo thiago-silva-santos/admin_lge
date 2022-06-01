@@ -1,14 +1,15 @@
 export default {
-    EXIBE_LOADING: (state, payload) => { 
+    SHOW_LOADING: (state, payload) => { 
         if(payload) {
-            state.dataLoading.corprogress = payload.cor ? payload.cor : "white";
-            state.dataLoading.texto = payload.texto ? payload.texto : "Carregando";
+            // state.dataLoading.corprogress = payload.cor ? payload.cor : "white";
+            state.dataLoading.description = payload.description ? payload.description : "Carregando";
         }          
-        state.dataLoading.exibe = true;
+        state.dataLoading.showLoading = true;
     },
-    ESCONDE_LOADING: (state) => {
-        state.dataLoading.exibe = false;
-        state.dataLoading.corprogress = "white";
-        state.dataLoading.texto = "Carregando";
+    HIDE_LOADING: (state) => {
+        console.log("ESCONDE_LOADING")
+        state.dataLoading.showLoading = false;
+        // state.dataLoading.corprogress = "white";
+        // state.dataLoading.texto = "Carregando";
     }
 }  

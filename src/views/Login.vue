@@ -44,8 +44,6 @@
 </template>
 
 <script>
-// import { mapActions } from "vuex";
-
 import { required, email } from "vuelidate/lib/validators";
 import EmptyFieldsAlertVue from "../components/Alerts/EmptyFieldsAlert.vue";
 export default {
@@ -87,8 +85,6 @@ export default {
       return errors;
     },
   },
-
-  created() {},
 
   methods: {
     logar() {

@@ -3,8 +3,12 @@ import router from "@/router";
 export default {
     ACESSAR({ commit }, payload) {
         if (payload) {
-            commit("acesso/SET_DADOS_ACESSO", payload, { root: true });
-            router.push('/home')
+            commit("loading/SHOW_LOADING", true, { root: true });
+            setTimeout(() => {
+                commit("acesso/SET_DADOS_ACESSO", payload, { root: true });
+                commit("loading/HIDE_LOADING", true, { root: true });
+                router.push('/home')
+            }, 2000);
         }
     },
     NOVA_SENHA({ commit }, payload) {
@@ -13,10 +17,10 @@ export default {
             router.push('/home')
         }
     },
-    
+
     // commit("loading/EXIBE_LOADING", true, { root: true });
     // commit("loading/ESCONDE_LOADING", true, { root: true });
-    
+
     // PERFIL({ commit }, payload) {
     //     payload.http("paciente/perfil").then(response => {
     //         if (response.data.result) {

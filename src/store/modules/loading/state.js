@@ -1,7 +1,7 @@
 export default {
     dataLoading: {
-        texto: "Carregando",
-        corprogress: "white",
-        exibe: false
+        description: "Carregando",
+        // corprogress: "white",
+        showLoading: false
     }
 }

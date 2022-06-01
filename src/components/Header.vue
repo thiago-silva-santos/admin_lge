@@ -85,6 +85,11 @@ export default {
           { title: "Cliente 3", icon: "mdi-home", path: "/Home" },
         ],
       },
+      {
+        title: "Telas Testes",
+        icon: "mdi-forum",
+        path: "/teste"
+      },
     ],
   }),
   computed: {
@@ -135,7 +140,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 56px;
-  border-bottom: 3px rgba(255, 255, 255, 0.300) solid;
+  border-bottom: 3px rgba(255, 255, 255, 0.3) solid;
 }
 .menuHeaderTitle {
   color: white;

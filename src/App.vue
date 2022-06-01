@@ -2,14 +2,28 @@
   <v-app>
     <div>
       <router-view name="header" />
-        <router-view name="login" />
+      <router-view name="login" />
       <div class="router-view-items">
+        <Breadcrumb/>
         <router-view />
       </div>
-      <!-- <Loading/> -->
+      <Loading />
     </div>
   </v-app>
 </template>
+
+<script>
+import Loading from "./components/Loading/LoadingScreen.vue";
+import Breadcrumb from "./components/Breadcrumb/Breadcrumb.vue";
+
+export default {
+  components: {
+    Loading,
+    Breadcrumb
+},
+};
+</script>
+
 
 <style>
 body {
@@ -21,5 +35,4 @@ body {
 .router-view-items:empty {
   display: none !important;
 }
-
 </style>
