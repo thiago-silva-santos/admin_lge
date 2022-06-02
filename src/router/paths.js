@@ -3,8 +3,6 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Header from '../components/Header.vue'
 import Loading from '../components/Loading/LoadingScreen.vue'
-import VueRouter from 'vue-router'
-
 // const NomeDaRota = this.$route.name
 
 
@@ -38,7 +36,10 @@ export default [
     {
         path: '/password',
         name: 'Password',
-        component: () => import('../views/Password.vue'),
+        components: {
+            password: () => import('../views/Password.vue')
+        }
+
     },
     {
         path: '/',
@@ -48,19 +49,76 @@ export default [
     },
     {
         path: '/home',
-        name: 'Home',
         components: {
             default: Home,
             header: Header
         },
+
+        children: [
+
+            {
+                path: '',
+                component: () => import('../components/Pages/Tela1.vue'),
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: 'Tela 1',
+                            to: '/home'
+                        },
+                        {
+                            text: 'Tela 2',
+                            to: '/home/testando'
+                        },
+                        {
+                            text: 'Tela 3',
+                            to: '/home/:id/tela_3'
+                        },
+
+                    ],
+                }
+            },
+            {
+                path: ':id',
+                name: 'Tela2',
+                component: () => import('../components/Pages/Tela2.vue'),
+                meta: {
+                    breadCrumb: [{
+                        text: 'Home',
+                        to: '/home'
+                    },
+                    {
+                        text: 'Tela 2',
+                        to: '/home/testando'
+                    }
+                    ]
+                }
+            },
+            {
+                path: '/home/:id/tela_3',
+                name: 'Tela3',
+                component: () => import('../components/Pages/Tela3.vue'),
+                meta: {
+                    breadCrumb: [{
+                        text: 'Tela 1',
+                        to: '/home'
+                    },
+                    {
+                        text: 'Tela 2',
+                        to: '/home/:id'
+                    },
+                    {
+                        text: 'Tela 3',
+                        to: '/home/:id/tela_3'
+                    }
+                ]
+                }
+            }
+
+        ],
         meta: {
 
             requireAuth: true,
-            breadCrumb: [
-                {
-                    text: 'Teste',
-                }
-            ],
+
 
         },
     },
@@ -73,77 +131,23 @@ export default [
         },
         meta: {
             requireAuth: true,
-            breadCrumb: [
+            breadcrumb: [
                 {
-                    text: 'Teste',
+                    text: 'My Items Index view',
+                    to: { name: 'Home' }
+                },
+                {
+                    text: 'My Item Detail view',
+                    to: {
+                        text: 'Home',
+                    }
                 }
-            ],
-
-        }
-
-    },
-    {
-        path: '/:parametro',
-        name: 'Tela1',
-        components: {
-            default: () => import('../views/Pages/Tela1.vue'),
-            header: Header
-        },
-        breadCrumb(route = VueRouter) {
-            const parametro = route.params.parametro;
-            return [
-
-                {
-                    text: 'teste',
-                },
-
-                {
-                    text: parametro,
-                },
             ]
         }
+
+
     },
-    {
-        path: '/teste',
-        name: 'Teste',
-        components: {
-            default: () => import('../views/Pages/Teste.vue'),
-            header: Header
-        },
 
-        // children: [
-
-        //     {
-        //         path: '/teste/tela2',
-        //         name: 'Tela2',
-        //         components: {
-        //             default: () => import('../views/Pages/Tela2.vue'),
-        //             header: Header
-        //         },
-        //         children: [
-        //             {
-        //                 path: '/teste/tela3',
-        //                 name: 'Tela3',
-        //                 components: {
-        //                     default: () => import('../views/Pages/Tela3.vue'),
-        //                     header: Header
-        //                 },
-        //             }
-        //         ]
-        //     },
-
-        // ],
-
-        meta: {
-            requireAuth: true,
-            breadCrumb: [
-                {
-                    text: 'Teste',
-                }
-            ],
-
-        }
-    },
     {
         path: '/about',
         name: 'About',

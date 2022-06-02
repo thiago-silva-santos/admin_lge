@@ -3,6 +3,7 @@
     <div>
       <router-view name="header" />
       <router-view name="login" />
+      <router-view name="password" />
       <div class="router-view-items">
         <Breadcrumb/>
         <router-view />

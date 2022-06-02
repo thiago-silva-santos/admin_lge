@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <div class="imgContainer">
-      <!-- <img id="img" alt="Vue logo"  /> -->
+    <div class="telas-testes">
+      <router-view/>
     </div>
     <section class="text">
       <HelloWorld msg="Welcome to Your Vue.js App" />
@@ -21,10 +21,8 @@ export default {
 };
 </script>
 <style scoped>
-img {
-  display: block;
-  width: 200px;
-  margin: 0 auto;
+.telas-testes {
+  max-height: 50px;
 }
 .text {
   max-width: 940px;

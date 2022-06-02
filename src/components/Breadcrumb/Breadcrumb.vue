@@ -18,11 +18,15 @@
 export default {
   computed: {
     breadCrumbs() {
-      if (typeof this.$route.meta.breadCrumb === "function") {
-        return this.$route.meta.breadCrumb.call(this, this.$route);
-      }
+      console.log(this.$route.params.id)
       return this.$route.meta.breadCrumb;
     },
   },
+    watch: {
+    $route(to) {
+      this.id = to.params.id;
+    },
+  },
+
 };
 </script>
