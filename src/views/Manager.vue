@@ -202,7 +202,7 @@ export default {
 
 <style scoped>
 .Manager {
-  padding-top: 30px;
+  padding: 30px 10px;
   display: flex;
   justify-content: center;
   align-items: center;

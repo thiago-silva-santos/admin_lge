@@ -1,10 +1,12 @@
 <template>
   <section class="login-screen" color="bluemoon">
-    <EmptyFieldsAlertVue
-      :title="revealAlert.title"
-      @click="revealAlert.status = !revealAlert.status"
-      v-if="revealAlert.status"
-    />
+    <div class="AlertComponent">
+      <EmptyFieldsAlertVue
+        :title="revealAlert.title"
+        @click="revealAlert.status = !revealAlert.status"
+        v-if="revealAlert.status"
+      />
+    </div>
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
         <h1>Entre com sua conta</h1>
@@ -124,12 +126,13 @@ export default {
 </script>
 
 <style scoped>
-.teste {
-  width: 300px;
-  height: 300px;
-}
-html {
-  overflow-y: hidden !important;
+.AlertComponent {
+  position: absolute;
+  left: 50%;
+  top: 150px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 100;
 }
 .login-screen {
   position: relative;
@@ -139,6 +142,7 @@ html {
   align-content: center;
   align-items: center;
   background-color: #0077ff;
+  flex-direction: column;
 }
 .login-box-title {
   margin-bottom: 15px;

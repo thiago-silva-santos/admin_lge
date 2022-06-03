@@ -5,7 +5,6 @@
       <router-view name="login" />
       <router-view name="password" />
       <div class="router-view-items">
-        <Breadcrumb/>
         <router-view />
       </div>
       <Loading />
@@ -15,13 +14,11 @@
 
 <script>
 import Loading from "./components/Loading/LoadingScreen.vue";
-import Breadcrumb from "./components/Breadcrumb/Breadcrumb.vue";
 
 export default {
   components: {
     Loading,
-    Breadcrumb
-},
+  },
 };
 </script>
 
@@ -34,6 +31,9 @@ body {
   padding-top: 64px !important;
 }
 .router-view-items:empty {
+  display: none !important;
+}
+.breadcrumb:empty {
   display: none !important;
 }
 </style>

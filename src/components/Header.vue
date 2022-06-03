@@ -90,6 +90,11 @@ export default {
         icon: "mdi-forum",
         path: "/teste"
       },
+      {
+        title: "Cadastro de Usuários",
+        icon: "mdi-forum",
+        path: "/register-users"
+      },
     ],
   }),
   computed: {

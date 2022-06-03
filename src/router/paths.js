@@ -131,18 +131,20 @@ export default [
         },
         meta: {
             requireAuth: true,
-            breadcrumb: [
-                {
-                    text: 'My Items Index view',
-                    to: { name: 'Home' }
-                },
-                {
-                    text: 'My Item Detail view',
-                    to: {
-                        text: 'Home',
-                    }
-                }
-            ]
+        }
+
+
+    },
+
+    {
+        path: '/register-users',
+        name: 'Register Users',
+        components: {
+            default: () => import('../views/RegisterUsers.vue'),
+            header: Header
+        },
+        meta: {
+            requireAuth: true,
         }
 
 

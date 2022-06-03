@@ -31,17 +31,13 @@ export default {
 </script>
 
 <style scoped>
-.v-alert {
-  position: absolute;
-  left: 50%;
-  bottom: 500px;
-  transform: translate(-50%, -50%);
-  margin: 0 auto;
-}
 
 @media (max-width: 600px) {
     .v-alert {
-        width: 300px;
+        width: 280px;
+    }
+    .v-alert strong {
+      font-size: 14px;
     }
 }
 </style>>
