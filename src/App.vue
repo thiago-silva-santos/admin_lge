@@ -8,16 +8,19 @@
         <router-view />
       </div>
       <Loading />
+      <AlertVue/>
     </div>
   </v-app>
 </template>
 
 <script>
 import Loading from "./components/Loading/LoadingScreen.vue";
+import AlertVue from "./components/Alerts/Alert.vue";
 
 export default {
   components: {
     Loading,
+    AlertVue
   },
 };
 </script>

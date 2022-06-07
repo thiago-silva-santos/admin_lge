@@ -3,8 +3,8 @@
     <v-card width="940px" v-model="valid" height="400">
       <v-card-title> Cadastro de Usuário </v-card-title>
       <section class="form">
-        <v-form ref="form" lazy-validation>
-          <v-container fluid>
+        <v-container fluid>
+          <v-form ref="form" v-model="form" lazy-validation @submit.prevent="isValidate">
             <v-text-field
               v-model="name"
               :counter="40"
@@ -13,7 +13,6 @@
               label="Nome completo"
               required
               outlined
-              clearable
             ></v-text-field>
 
             <v-text-field
@@ -22,25 +21,24 @@
               @input="$v.email.$touch()"
               label="E-mail"
               required
+              :rules="[required]"
               outlined
-              clearable
               class="pt-5"
             ></v-text-field>
-
             <section class="buttons">
               <v-btn
                 :disabled="!valid"
                 color="success"
                 class="mr-4"
-                @click="validate"
+                type="submit"
               >
                 Enviar
               </v-btn>
 
               <v-btn color="error" @click="reset"> Cancelar </v-btn>
             </section>
-          </v-container>
-        </v-form>
+          </v-form>
+        </v-container>
       </section>
     </v-card>
   </div>
@@ -50,12 +48,13 @@
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
+  components: {},
   validations: {
     email: { required, email },
     name: {
       required,
       MaxLength: function (value) {
-        return value === null || value.length >= 5 && value.length < 40;
+        return value === null || (value.length >= 5 && value.length < 40);
       },
     },
   },
@@ -63,7 +62,7 @@ export default {
     valid: true,
     name: "",
     email: "",
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    form: true
   }),
 
   computed: {
@@ -78,17 +77,60 @@ export default {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
       !this.$v.name.required && errors.push("Campo requerido!");
-      !this.$v.name.MaxLength && errors.push("Nome deve conter entre 5 à 40 caracteres");
+      !this.$v.name.MaxLength &&
+        errors.push("Nome deve conter entre 5 à 40 caracteres");
       return errors;
     },
+    required: value => !!value || "Campo requerido"
   },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
+      if (this.validateSubmit()) {
+        this.$store.dispatch("cadastro/CADASTRAR_USUARIO", {
+          email: this.email,
+          name: this.name,
+        });
+        this.$store.commit("alert/HIDE_ALERT");
+      } else if (this.email == "" && this.name == "" || !this.email == "" && this.name == "" || !this.name == "" && this.email == "") {
+        this.$store.commit("alert/SHOW_ALERT", {
+          description: "Favor preencher todos os campos!",
+          type: "warning",
+        });
+      } else {
+        this.$store.commit("alert/SHOW_ALERT", {
+          description: "Alguns dados estão inválidos!",
+          type: "warning",
+        });
+      }
     },
     reset() {
-      this.$refs.form.reset();
+      this.email = "";
+      this.name = "";
+    },
+    isValidate() {
+        this.$refs.form.validate()
+        console.log(this.$refs.form.validate())
+    },
+
+    validateSubmit() {
+      return (
+        this.$v.email.email &&
+        this.$v.name &&
+        this.email != "" &&
+        this.name != ""
+      );
+    },
+  },
+
+  watch: {
+    name(value) {
+      if (value) {
+        this.$store.commit("alert/HIDE_ALERT");
+      } else console.log(value);
+    },
+    email(value) {
+      if (value) this.$store.commit("alert/HIDE_ALERT");
     },
   },
 };
