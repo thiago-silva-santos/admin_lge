@@ -1,20 +1,23 @@
 <template>
   <div class="AlertComponent">
     <v-alert
-      dense
-      border="left"
-      :class="componentData.type"
-      color="pink"
       dark
-      icon="mdi-alert"
-      transition="scale-transition"
-      v-if="componentData.showAlert"
+      text
+      dense
+      prominent
+      dismissible
+      :value="componentData.showAlert"
+      border="left"
+      :type="componentData.type"
+      :icon="componentData.icon"
+      min-width="300px"
+      max-width="400px"
+      transition="slide-y-reverse-transition"
     >
       <strong>{{ componentData.description }}</strong>
     </v-alert>
   </div>
 </template>
-
 <script>
 export default {
   props: {
@@ -30,19 +33,17 @@ export default {
     },
   },
 
-  data: () => ({}),
 };
 </script>
 
 <style scoped>
 .AlertComponent {
-  position: absolute;
-  left: 50%;
-  top: 150px;
-  transform: translate(-50%, -50%);
-  margin: 0 auto;
+  position: fixed;
+  bottom: 2vh;
+  right: 1%;
   z-index: 100;
 }
+
 @media (max-width: 600px) {
   .v-alert {
     width: 280px;

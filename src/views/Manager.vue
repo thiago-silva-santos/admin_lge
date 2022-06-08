@@ -193,6 +193,7 @@ export default {
     },
   },
   async created() {
+    this.$alert.warning("gerenciador")
     await this.$http("assets/menu.json").then((response) => {
       this.items = response.data;
     });

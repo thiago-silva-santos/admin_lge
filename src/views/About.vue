@@ -4,6 +4,17 @@
   </div>
 </template>
 
+<script>
+
+export default {
+
+created() {
+  this.$alert.info("vc está na página de informações")
+}
+}
+</script>
+
+
 <style scoped>
 body {
   background: orange;

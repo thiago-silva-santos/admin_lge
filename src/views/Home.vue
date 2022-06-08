@@ -23,6 +23,10 @@ export default {
     HelloWorld,
     Breadcrumb
   },
+
+  created() {
+    this.$alert.success("abriu a home")
+  }
 };
 </script>
 <style scoped>

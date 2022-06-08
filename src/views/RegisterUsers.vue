@@ -4,12 +4,16 @@
       <v-card-title> Cadastro de Usuário </v-card-title>
       <section class="form">
         <v-container fluid>
-          <v-form ref="form" v-model="form" lazy-validation @submit.prevent="isValidate">
+          <v-form
+            ref="form"
+            v-model="form"
+            lazy-validation
+            @submit.prevent="submit"
+          >
             <v-text-field
               v-model="name"
               :counter="40"
-              :error-messages="nameErrors"
-              @input="$v.name.$touch()"
+              :rules="rules.nameRules"
               label="Nome completo"
               required
               outlined
@@ -17,11 +21,9 @@
 
             <v-text-field
               v-model="email"
-              :error-messages="emailErrors"
-              @input="$v.email.$touch()"
               label="E-mail"
               required
-              :rules="[required]"
+              :rules="rules.emailRules"
               outlined
               class="pt-5"
             ></v-text-field>
@@ -62,75 +64,34 @@ export default {
     valid: true,
     name: "",
     email: "",
-    form: true
+    form: true,
+    rules: {
+      nameRules: [
+        (v) => !!v || "Nome é requerido!",
+        (v) =>
+          (v && v.length <= 40) || "O nome deve ter entre 5 à 40 caracteres.",
+      ],
+      emailRules: [
+        (v) => !!v || "E-mail é requerido!",
+        (v) => /.+@.+\..+/.test(v) || "E-mail deve ser válido!",
+      ],
+    },
   }),
 
-  computed: {
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("E-mail inválido");
-      !this.$v.email.required && errors.push("E-mail requerido");
-      return errors;
-    },
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.required && errors.push("Campo requerido!");
-      !this.$v.name.MaxLength &&
-        errors.push("Nome deve conter entre 5 à 40 caracteres");
-      return errors;
-    },
-    required: value => !!value || "Campo requerido"
-  },
-
   methods: {
-    validate() {
-      if (this.validateSubmit()) {
+    submit() {
+      if (this.isFormValid()) {
         this.$store.dispatch("cadastro/CADASTRAR_USUARIO", {
           email: this.email,
           name: this.name,
         });
-        this.$store.commit("alert/HIDE_ALERT");
-      } else if (this.email == "" && this.name == "" || !this.email == "" && this.name == "" || !this.name == "" && this.email == "") {
-        this.$store.commit("alert/SHOW_ALERT", {
-          description: "Favor preencher todos os campos!",
-          type: "warning",
-        });
-      } else {
-        this.$store.commit("alert/SHOW_ALERT", {
-          description: "Alguns dados estão inválidos!",
-          type: "warning",
-        });
       }
     },
     reset() {
-      this.email = "";
-      this.name = "";
+      this.$refs.form.reset();
     },
-    isValidate() {
-        this.$refs.form.validate()
-        console.log(this.$refs.form.validate())
-    },
-
-    validateSubmit() {
-      return (
-        this.$v.email.email &&
-        this.$v.name &&
-        this.email != "" &&
-        this.name != ""
-      );
-    },
-  },
-
-  watch: {
-    name(value) {
-      if (value) {
-        this.$store.commit("alert/HIDE_ALERT");
-      } else console.log(value);
-    },
-    email(value) {
-      if (value) this.$store.commit("alert/HIDE_ALERT");
+    isFormValid() {
+      return this.$refs.form.validate();
     },
   },
 };
@@ -146,7 +107,7 @@ export default {
 
 .buttons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-end;
   height: 110px;
   padding: 5px;

@@ -1,21 +1,17 @@
-import router from "@/router";
 
 export default {
-    GET_ALERT({ commit }, payload) {
-        if (payload) {
-            commit("alert/SHOW_ALERT", true, { root: true });
-            setTimeout(() => {
-                commit("acesso/SET_DADOS_ACESSO", payload, { root: true });
-                commit("loading/HIDE_LOADING", true, { root: true });
-                router.push('/home')
-            }, 2000);
-        }
+    SUCCESS: ({commit}, text) => {
+        commit("SHOW_ALERT", { description: text, icon: "mdi-check", type: "success" })
     },
-    NOVA_SENHA({ commit }, payload) {
-        if (payload) {
-            commit("acesso/SET_NOVA_SENHA", payload, { root: true });
-            router.push('/home')
-        }
+    INFO: ({commit}, text) => {
+        commit("SHOW_ALERT", { description: text, icon: "mdi-information", type: "info" })
     },
+    WARNING: ({commit}, text) => {
+        commit("SHOW_ALERT", { description: text, icon: "mdi-alert", type: "warning" })
+    },
+    ERROR: ({commit}, text) => {
+        commit("SHOW_ALERT", { description: text, icon: "mdi-error", type: "error" })
+    }
+
 
 }
