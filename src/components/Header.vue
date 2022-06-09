@@ -88,12 +88,18 @@ export default {
       {
         title: "Telas Testes",
         icon: "mdi-forum",
-        path: "/teste"
+        path: "/teste",
       },
       {
         title: "Cadastro de Usuários",
         icon: "mdi-forum",
-        path: "/register-users"
+        path: "/register-users",
+      },
+
+      {
+        title: "Test Components",
+        icon: "support",
+        path: "/testes",
       },
     ],
   }),

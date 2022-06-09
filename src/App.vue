@@ -9,6 +9,8 @@
       </div>
       <Loading />
       <AlertVue/>
+      <DialogVue/>
+
     </div>
   </v-app>
 </template>
@@ -16,11 +18,13 @@
 <script>
 import Loading from "./components/Loading/LoadingScreen.vue";
 import AlertVue from "./components/Alerts/Alert.vue";
+import DialogVue from "./components/Dialogs/Dialog.vue";
 
 export default {
   components: {
     Loading,
-    AlertVue
+    AlertVue,
+    DialogVue
   },
 };
 </script>

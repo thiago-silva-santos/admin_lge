@@ -2,7 +2,6 @@
   <div class="AlertComponent">
     <v-alert
       dark
-      text
       dense
       prominent
       dismissible

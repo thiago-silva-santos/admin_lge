@@ -9,6 +9,7 @@ import SubGroupMenu from './components/Menu/SubGroupMenu'
 
 import './plugins/axios'
 import './plugins/alert'
+import './plugins/dialog'
 
 Vue.use(Vuelidate)
 Vue.config.productionTip = false

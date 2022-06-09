@@ -149,6 +149,19 @@ export default [
 
 
     },
+    {
+        path: '/testes',
+        name: 'Testes',
+        components: {
+            default: () => import('../views/Testes.vue'),
+            header: Header
+        },
+        meta: {
+            requireAuth: true,
+        }
+
+
+    },
 
     {
         path: '/about',

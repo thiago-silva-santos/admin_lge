@@ -1,26 +1,18 @@
 <template>
   <section class="login-screen" color="bluemoon">
-    <div class="AlertComponent">
-      <EmptyFieldsAlertVue
-        :title="revealAlert.title"
-        @click="revealAlert.status = !revealAlert.status"
-        v-if="revealAlert.status"
-      />
-    </div>
     <v-card elevation="2" class="login-container-box">
       <div class="login-box-title">
         <h1>Entre com sua conta</h1>
       </div>
-      <v-form class="login-box-textfields" ref="formAcesso" lazy-validation>
+      <v-form class="login-box-textfields" ref="formLogin" lazy-validation>
         <v-text-field
           color="bluemoon"
           class="text-field"
           label="E-mail"
           v-model="email"
-          :error-messages="emailErrors"
-          @input="$v.email.$touch()"
           required
           tabindex="1"
+          :rules="rules.emailRules"
         ></v-text-field>
 
         <v-text-field
@@ -28,12 +20,11 @@
           label="Senha"
           v-model="password"
           required
-          :error-messages="passwordErrors"
-          @input="$v.password.$touch()"
           :append-icon="show_password1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show_password1 ? 'text' : 'password'"
           @click:append="show_password1 = !show_password1"
           tabindex="1"
+          :rules="rules.passwordRules"
         ></v-text-field>
         <div class="btn-container">
           <v-btn class="bluemoon v-btn-login" v-on:click="logar()">
@@ -46,47 +37,21 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
-import EmptyFieldsAlertVue from "../components/Alerts/EmptyFieldsAlert.vue";
 export default {
-  components: {
-    EmptyFieldsAlertVue,
-  },
-  validations: {
-    email: { required, email },
-    password: {
-      required,
-      Uppercase: function (value) {
-        return value === this.password;
-      },
-    },
-  },
+
   name: "Login",
   data: () => ({
     show_password1: false,
     email: "",
     password: "",
-    revealAlert: {
-      status: false,
-      title: "",
+    rules: {
+      emailRules: [
+        (v) => !!v || "E-mail é requerido!",
+        (v) => /.+@.+\..+/.test(v) || "E-mail deve ser válido!",
+      ],
+      passwordRules: [(v) => !!v || "Senha é requerida!"],
     },
   }),
-
-  computed: {
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("E-mail inválido");
-      !this.$v.email.required && errors.push("E-mail requerido");
-      return errors;
-    },
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Senha requerida");
-      return errors;
-    },
-  },
 
   methods: {
     logar() {
@@ -95,45 +60,17 @@ export default {
           email: this.email,
           isLogged: true,
         });
-      } else if (this.email == "" && this.password == "") {
-        this.revealAlert.status = true;
-        this.revealAlert.title = "Favor preencher os campos!";
-      } else {
-        this.revealAlert.status = true;
-        this.revealAlert.title = "Alguns dados estão inválidos!";
       }
     },
 
     validateSubmit() {
-      return (
-        this.$v.email.email &&
-        this.$v.password &&
-        this.email != "" &&
-        this.password != ""
-      );
-    },
-  },
-
-  watch: {
-    email(value) {
-      if (value) this.revealAlert.status = false;
-    },
-    revealAlert(value) {
-      console.log(value.status);
+      return this.$refs.formLogin.validate();
     },
   },
 };
 </script>
 
 <style scoped>
-.AlertComponent {
-  position: absolute;
-  left: 50%;
-  top: 150px;
-  transform: translate(-50%, -50%);
-  margin: 0 auto;
-  z-index: 100;
-}
 .login-screen {
   position: relative;
   display: flex;
@@ -166,11 +103,6 @@ export default {
   color: white !important;
 }
 
-.v-text-field >>> .v-input__append-inner {
-  position: absolute !important;
-  right: 5px !important;
-  padding: 0;
-}
 
 @media (max-width: 600px) {
   .login-container-box {
