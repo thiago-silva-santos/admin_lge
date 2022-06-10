@@ -3,6 +3,7 @@ export default {
         title: "",
         type: "",
         description: "",
-        showDialog: false
+        showDialog: false,
+        delete: false,
     }
 }

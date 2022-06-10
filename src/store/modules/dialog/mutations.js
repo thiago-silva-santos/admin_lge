@@ -1,3 +1,4 @@
+
 export default {
     SHOW_DIALOG: (state, payload) => {
         if (payload) {
@@ -6,8 +7,13 @@ export default {
             state.data.description = payload.description
         }
         state.data.showDialog = true;
-    },  
-    HIDE_DIALOG: (state) => {
-        state.data.showDialog = false;
+        state.data.delete = false
+
+    },
+    HIDE_DIALOG: (state, payload) => {
+        if (payload) {
+            state.data.delete = payload.delete
+        }
+            state.data.showDialog = false;
     }
 }  
