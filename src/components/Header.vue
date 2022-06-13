@@ -20,7 +20,7 @@
         class="drawer"
         app
         temporary
-        width="300"
+        width="350"
         dark
       >
         <div class="menuHeader">
@@ -29,7 +29,7 @@
           </div>
           <h1 class="menuHeaderTitle">LIWEB - EVENTOS</h1>
         </div>
-        <menu-list-new :items="items" />
+        <menu-list :items="items" :depth="0"/>
       </v-navigation-drawer>
     </div>
   </nav>
@@ -62,12 +62,28 @@ export default {
           { title: "Child 1", icon: "support", path: "/Home" },
           { title: "Child 2", icon: "mdi-home", path: "/About" },
           {
-            title: "Child 3",
+            title: "Child 3 (Sub Group)",
             icon: "mdi-home",
             children: [
               { title: "Child 1", icon: "mdi-home", path: "/Home" },
               { title: "Child 2", icon: "mdi-home", path: "/About" },
-              { title: "Child 3", icon: "mdi-home", path: "/Home" },
+              {
+                title: "Child 3",
+                icon: "mdi-home",
+                children: [
+                  { title: "Child 1", icon: "support", path: "/Home" },
+                  { title: "Child 2", icon: "mdi-home", path: "/About" },
+                  {
+                    title: "Child 3 (Sub Group)",
+                    icon: "mdi-home",
+                    children: [
+                      { title: "Child 1", icon: "mdi-home", path: "/Home" },
+                      { title: "Child 2", icon: "mdi-home", path: "/About" },
+                      { title: "Child 3", icon: "mdi-home", path: "/Home" },
+                    ],
+                  },
+                ],
+              },
             ],
           },
         ],

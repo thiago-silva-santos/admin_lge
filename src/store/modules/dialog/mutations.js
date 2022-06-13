@@ -13,7 +13,11 @@ export default {
     HIDE_DIALOG: (state, payload) => {
         if (payload) {
             state.data.delete = payload.delete
+
         }
-            state.data.showDialog = false;
+        state.data.showDialog = false;
+        setTimeout(() => {
+            state.data.delete = false
+        }, 500);
     }
 }  
