@@ -1,0 +1,109 @@
+[
+     {
+         "title": "Home",
+         "path": "/Home"
+     },
+     {
+         "title": "Gerenciador",
+         "icon": "mdi-briefcase-clock",
+         "path": "/manager"
+     },
+     {
+         "title": "About",
+         "icon": "mdi-account",
+         "path": "/About"
+     },
+     {
+         "title": "Nova Senha",
+         "icon": "key",
+         "path": "/password"
+     },
+     {
+         "title": "Station",
+         "icon": "support",
+         "children": [
+             {
+                 "title": "Child 1",
+                 "icon": "support"
+             },
+             {
+                 "title": "Child 2",
+                 "icon": "mdi-home"
+             },
+             {
+                 "title": "Child 3",
+                 "icon": "mdi-home",
+                 "children": [
+                     {
+                         "title": "Grandchild 1",
+                         "icon": "mdi-home"
+                     },
+                     {
+                         "title": "Grandchild 2",
+                         "icon": "mdi-home"
+                     },
+                     {
+                         "title": "Grandchild 3",
+                         "icon": "mdi-home",
+                         "children": [
+                             {
+                                 "title": "Child 1",
+                                 "icon": "support"
+                             },
+                             {
+                                 "title": "Child 2",
+                                 "icon": "mdi-home"
+                             },
+                             {
+                                 "title": "Child 3",
+                                 "icon": "mdi-home",
+                                 "children": [
+                                     {
+                                         "title": "Grandchild 1",
+                                         "icon": "mdi-home"
+                                     },
+                                     {
+                                         "title": "Grandchild 2",
+                                         "icon": "mdi-home"
+                                     },
+                                     {
+                                         "title": "Grandchild 3",
+                                         "icon": "mdi-home"
+                                     }
+                                 ]
+                             }
+                         ]
+                     }
+                 ]
+             }
+         ]
+     },
+     {
+         "title": "Clientes Cadastrados",
+         "icon": "mdi-forum",
+         "children": [
+             {
+                 "title": "Cliente 1",
+                 "icon": "mdi-home"
+             },
+             {
+                 "title": "Cliente 2",
+                 "icon": "mdi-home"
+             },
+             {
+                 "title": "Cliente 3",
+                 "icon": "mdi-home"
+             }
+         ]
+     },
+     {
+         "title": "Cadastro de Usuários",
+         "icon": "mdi-forum",
+         "path": "/register-users"
+     },
+     {
+         "title": "Teste de Componentes",
+         "icon": "support",
+         "path": "/testes"
+     }
+ ]

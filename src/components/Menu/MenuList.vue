@@ -1,13 +1,13 @@
 <template>
-  <v-list expand nav dense v-bind="$attrs" v-on="$listeners">
+  <v-list expand nav dense>
     <template v-for="(item, i) in items">
       <default-list-group
         v-if="item.children"
-        :key="`group-${i}`"
+        :key="i"
         :item="item"
       />
 
-      <default-list-item v-else :key="`item-${i}`" :item="item"/>
+      <default-list-item v-if="!item.children" :key="i" :item="item"/>
     </template>
   </v-list>
 </template>

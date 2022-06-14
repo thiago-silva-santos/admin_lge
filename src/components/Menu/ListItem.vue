@@ -1,33 +1,19 @@
 <template>
   <v-list-item
-    :href="item.href"
-    :rel="item.href ? 'nofollow' : undefined"
-    :target="item.href ? '_blank' : undefined"
-    :to="item.to"
-    active-class="primary white--text"
+    :to="item.path"
+    active-class="teal darken-2"
     link
-    class="py-1"
-    v-bind="$attrs"
-    v-on="$listeners"
-    :style="indent"
+    class="py-0"
     :depth="depth + 1"
+    :style="indent"
+    dark
   >
     <v-list-item-icon
       v-if="!item.icon"
-      class="
-        text-caption text-uppercase
-        justify-center
-        ml-1
-        my-2
-        align-self-center
-      "
+      class="text-caption text-uppercase justify-center mt-3"
     >
-      {{ title }}
+      {{ FirstTitleLetter }}
     </v-list-item-icon>
-
-    <v-list-item-avatar v-if="item.avatar">
-      <v-img :src="item.avatar" />
-    </v-list-item-avatar>
 
     <v-list-item-icon v-if="item.icon" class="my-2 align-self-center">
       <v-icon v-text="item.icon" />
@@ -50,18 +36,18 @@ export default {
     },
     depth: {
       type: Number,
-      default: 0
+      default: 0,
     },
   },
 
   computed: {
-    title() {
+    FirstTitleLetter() {
       const matches = this.item.title.match(/\b(\w)/g);
 
       return matches.join("");
     },
     indent() {
-      return { 'padding-left': `calc(${this.depth * 50}px)` };
+      return { "padding-left": `calc(8px + (${this.depth * 30}px))` };
     },
   },
 };

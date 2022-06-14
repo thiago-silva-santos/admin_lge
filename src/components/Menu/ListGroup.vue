@@ -1,26 +1,18 @@
 <template>
   <v-list-group
-    color="white"
-    :group="group"
     :prepend-icon="item.icon"
-    eager
-    v-bind="$attrs"
     :depth="depth + 1"
     :style="indent"
-    class="teste"
+    color="teal lighten-2"
   >
     <template v-slot:activator>
       <v-list-item-icon
-        v-if="!item.icon && !item.avatar"
-        class="text-caption text-uppercase text-center my-2 align-self-center"
+        v-if="!item.icon"
+        class="text-caption text-uppercase justify-center mt-3"
         style="margin-top: 14px"
       >
-        {{ title }}
+        {{ FirstTitleLetter }}
       </v-list-item-icon>
-
-      <v-list-item-avatar v-if="item.avatar">
-        <v-img :src="item.avatar" />
-      </v-list-item-avatar>
 
       <v-list-item-content v-if="item.title">
         <v-list-item-title v-text="item.title" />
@@ -30,14 +22,14 @@
     <template v-for="(child, i) in item.children">
       <default-list-group
         v-if="child.children"
-        :key="`sub-group-${i}`"
+        :key="i"
         :item="child"
-        :depth="0.4"
+        :depth="0.5"
       />
 
       <default-list-item
         v-if="!child.children"
-        :key="`child-${i}`"
+        :key="i"
         :item="child"
         :depth="0.5"
       />
@@ -46,7 +38,6 @@
 </template>
 
 <script>
-
 export default {
   name: "DefaultListGroup",
 
@@ -66,34 +57,15 @@ export default {
   },
 
   computed: {
-    group() {
-      return this.genGroup(this.item.children);
-    },
-    title() {
+    FirstTitleLetter() {
       const matches = this.item.title.match(/\b(\w)/g);
 
       return matches.join("");
     },
     indent() {
-      return { 'padding-left': `calc(${this.depth * 50}px)` };
+      return { "padding-left": `calc(${this.depth * 30}px)` };
     },
   },
 
-  methods: {
-    genGroup(items) {
-      return items
-        .reduce((acc, cur) => {
-          if (!cur.to) return acc;
-
-          acc.push(cur.items ? this.genGroup(cur.items) : cur.to.slice(1, -1));
-
-          return acc;
-        }, [])
-        .join("|");
-    },
-  },
 };
 </script>
-<style scoped>
-
-</style>
