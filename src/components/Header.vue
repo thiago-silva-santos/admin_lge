@@ -94,9 +94,6 @@ export default {
   margin-right: 10px;
 }
 
-
-
-
 @media (max-width: 400px) {
   .v-navigation-drawer {
     max-width: 300px !important;

@@ -162,6 +162,19 @@ export default [
 
 
     },
+    {
+        path: '/showcase',
+        name: 'Showcase',
+        components: {
+            default: () => import('../views/Showcase.vue'),
+            header: Header
+        },
+        meta: {
+            requireAuth: true,
+        }
+
+
+    },
 
     {
         path: '/about',

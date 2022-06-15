@@ -34,6 +34,9 @@ export default {
 body {
   font-family: "Roboto", sans-serif;
 }
+html {
+  overflow-y: auto !important;
+}
 .router-view-items {
   padding-top: 64px !important;
 }

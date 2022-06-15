@@ -105,5 +105,10 @@
          "title": "Teste de Componentes",
          "icon": "support",
          "path": "/testes"
+     },
+     {
+         "title": "Showcase de Componentes",
+         "icon": "mdi-account-supervisor-circle-outline",
+         "path": "/showcase"
      }
  ]
