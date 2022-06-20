@@ -3,7 +3,7 @@
     :prepend-icon="item.icon"
     :depth="depth + 1"
     :style="indent"
-    color="teal lighten-2"
+    color="white"
   >
     <template v-slot:activator>
       <v-list-item-icon

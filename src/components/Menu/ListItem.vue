@@ -1,7 +1,7 @@
 <template>
   <v-list-item
     :to="item.path"
-    active-class="teal darken-2"
+    active-class="grey darken-4"
     link
     class="py-0"
     :depth="depth + 1"

@@ -15,7 +15,7 @@
         </v-app-bar>
       </div>
 
-      <v-navigation-drawer v-model="drawer" app temporary width="400" dark>
+      <v-navigation-drawer v-model="drawer" app temporary width="340" dark>
         <div class="menuHeader">
           <div class="logo">
             <!-- <v-img width="25" height="25" src="../assets/logo.png"></v-img> -->
@@ -35,9 +35,9 @@ export default {
     drawer: false,
     username: "",
     status: "Logado como:",
-    items: []
+    items: [],
   }),
-    async created() {
+  async created() {
     await this.$http("assets/menu-list.json").then((response) => {
       this.items = response.data;
     });
@@ -48,6 +48,18 @@ export default {
 };
 </script>
 <style scoped>
+::v-deep ::-webkit-scrollbar {
+  width: 12px;
+}
+::v-deep ::-webkit-scrollbar-track {
+  background-color: #404040;
+}
+::v-deep ::-webkit-scrollbar-thumb {
+  border: 3px solid #404040;
+  border-radius: 50px;
+  background-color: #252525;
+}
+
 .app-bar-container {
   display: inherit;
   justify-content: space-between;
