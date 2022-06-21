@@ -3,7 +3,7 @@
     <v-card
       max-width="1240px"
       min-width="940px"
-      class="blue pa-2 lighten-2"
+      class="white pa-2"
     >
       <v-card-title> Showcase de Cartão </v-card-title>
       <section class="content-cards">

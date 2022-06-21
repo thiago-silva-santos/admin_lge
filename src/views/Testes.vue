@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card class="card1">
       <v-card-actions>
         <v-row align-content="center">
           <v-col cols="6" md="12" sm="12">
@@ -35,18 +35,37 @@
         </v-row>
       </v-card-actions>
     </v-card>
+    <data-table-vue :items="items" :headers="headers" />
   </v-container>
 </template>
 
 <script>
+import DataTableVue from "../components/DataTable/DataTable.vue";
 export default {
-  components: {},
+  components: { DataTableVue },
   data() {
     return {
       dialog: false,
+      items: [],
+      headers: [
+        {
+          text: "Dessert (100g serving)",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+        { text: "Calories", value: "calories" },
+        { text: "Fat (g)", value: "fat" },
+        { text: "Carbs (g)", value: "carbs" },
+        { text: "Protein (g)", value: "protein" },
+      ],
     };
   },
-
+  async created() {
+    await this.$http("assets/table-list.json").then((response) => {
+      this.items = response.data;
+    });
+  },
   methods: {
     showDialog() {
       this.$store.commit("dialog/SHOW_DIALOG", {
@@ -104,5 +123,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.card1 {
+  margin-bottom: 50px;
+}
 </style>
