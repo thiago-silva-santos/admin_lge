@@ -58,6 +58,9 @@ export default {
         { text: "Fat (g)", value: "fat" },
         { text: "Carbs (g)", value: "carbs" },
         { text: "Protein (g)", value: "protein" },
+        { text: "Iron (g)", value: "iron" },
+        { text: "Ações", align: "center", sortable: false },
+
       ],
     };
   },
